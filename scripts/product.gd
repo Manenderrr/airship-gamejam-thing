@@ -10,8 +10,12 @@ class_name Product
 	set(value):
 			density = value
 			update_weight()
-@export var amount: int = 0
+@export var amount: int = 0:
+	set(value):
+			amount = max(0, value)
+
 var weight: float = 0
+
 
 func update_weight() -> void:
 	weight = density * size

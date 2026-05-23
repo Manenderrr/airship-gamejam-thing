@@ -1,24 +1,42 @@
 extends RigidBody3D
 
-var weight: float = 2000.0
+
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
+@export var weight: float = 2000.0
 const air_density: float = 1.190
 const airship_density: float = 0.0899
-var g: float = 9.8
+const g: float = 9.8
 
 @export_group("UI")
 @onready var shipment_menu: = %ShipmentMenu
 
+<<<<<<< Updated upstream
 @export_group("Cargo")
 @export var products: Array[Product]
-@export var crate_size: float = 100
+@export var crate_size: float = 100:
+	set(value):
+			crate_size = max(0, value)
 var products_size: float = 0
+=======
+@export var products: Array[Product] = []
+var crate_size: float = 100:
+	set(value):
+			crate_size = max(0, value)
+>>>>>>> Stashed changes
 
 @export_group("Ballast")
 @export var airship_capasity: float = 50000.0
-@export var air_ballast_space: float:
+@export var air_in_ballast: float:
 	set(value):
-		air_ballast_space = clamp(value, 0, airship_capasity)
-		air_changed_fraction.emit(air_ballast_space / airship_capasity)
+		air_in_ballast = clamp(value, 0, airship_capasity)
+<<<<<<< Updated upstream
+		air_changed_fraction.emit(air_in_ballast / airship_capasity)
+		
+=======
+>>>>>>> Stashed changes
 @export var air_ballast_pump_speed :float = 1000.0
 
 signal air_changed_fraction(new_fraction: float)
@@ -38,14 +56,14 @@ func _ready() -> void:
 		if prod:
 			mass += prod.weight * prod.amount
 
-	air_ballast_space = mass / (air_density - airship_density)
+	air_in_ballast = mass / (air_density - airship_density)
 
 func _process(delta: float) -> void:
 	if shipment_menu.in_shipment_menu == false:
 		if Input.is_action_pressed("takeoff"):
-			air_ballast_space -= air_ballast_pump_speed * delta
+			air_in_ballast -= air_ballast_pump_speed * delta
 		if Input.is_action_pressed("landing"):
-			air_ballast_space += air_ballast_pump_speed * delta
+			air_in_ballast += air_ballast_pump_speed * delta
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -57,12 +75,22 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.apply_torque(Vector3(0, torque_axis * torque, 0))
 
 	#airship takeoff and landing
-	state.apply_central_force(basis.y * g * air_ballast_space * (air_density - airship_density))
+	state.apply_central_force(basis.y * g * air_in_ballast * (air_density - airship_density))
 
-func change_mass():
+func add_mass():
 	for prod in products:
+		var new_mass: float
 		if prod:
-			products_size += prod.size * prod.amount
-			if crate_size >= products_size:
-				mass += prod.weight * prod.amount
-				air_ballast_space = mass / (air_density - airship_density)
+			if crate_size >= prod.size * prod.amount:
+				new_mass = prod.weight * prod.amount
+				air_in_ballast = mass / (air_density - airship_density)
+		mass += new_mass
+
+func remove_mass():
+	for prod in products:
+		var new_mass: float
+		if prod:
+			if crate_size >= prod.size * prod.amount:
+				new_mass = prod.weight * prod.amount
+				air_in_ballast = mass / (air_density - airship_density)
+		mass -= new_mass

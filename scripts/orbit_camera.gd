@@ -26,7 +26,7 @@ func _ready():
 	assert(is_instance_valid(camera), "Camera is not set")
 
 func _input(event: InputEvent) -> void:
-	if(shipment_menu.in_shipment_menu == false):
+	if shipment_menu.in_shipment_menu == false:
 		if event is InputEventMouseMotion:
 			var mouse_delta = event.screen_relative * sensivity
 			rotation_x += mouse_delta.x

@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://cmso0s4aandw8"]
+
+[ext_resource type="Script" uid="uid://vw1uik1lapom" path="res://scripts/shipment_menu.gd" id="1_my26y"]
+[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://scripts/product.gd" id="2_ejk6p"]
+[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="3_vlt5v"]
+[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="4_romhf"]
+[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="5_86qsv"]
+
+[node name="ShipmentMenu" type="Control" unique_id=1322058284]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_my26y")
+products = Array[ExtResource("2_ejk6p")]([ExtResource("3_vlt5v"), ExtResource("4_romhf"), ExtResource("5_86qsv")])
+
+[node name="MainContainer(Margin)" type="MarginContainer" parent="." unique_id=171145227]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="MenuBackground" type="PanelContainer" parent="MainContainer(Margin)" unique_id=354974373]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer(Margin)/MenuBackground" unique_id=739216900]
+layout_mode = 2
+
+[node name="InfoContainer(Margin)" type="MarginContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer" unique_id=1553520858]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ExitButton" type="Button" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/InfoContainer(Margin)" unique_id=960266579]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "X"
+
+[node name="MainMenuContainer(HBox)" type="HBoxContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer" unique_id=408083887]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RemoveContainer(VBox)" type="VBoxContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)" unique_id=28209972]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InfoAddContainer(Margin)" type="MarginContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/RemoveContainer(VBox)" unique_id=1336642723]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/RemoveContainer(VBox)/InfoAddContainer(Margin)" unique_id=863627380]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/RemoveContainer(VBox)/InfoAddContainer(Margin)/Background" unique_id=1401656331]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Remove items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemoveContainers(VBox)" type="VBoxContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/RemoveContainer(VBox)" unique_id=188901958]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AddContainer(VBox)" type="VBoxContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)" unique_id=1002262058]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InfoAddContainer(Margin)" type="MarginContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=1859477992]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/InfoAddContainer(Margin)" unique_id=1459967626]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/InfoAddContainer(Margin)/Background" unique_id=1731049076]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Add items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddContainers(VBox)" type="VBoxContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=259966358]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PastActsInfoContainer(Margin)" type="MarginContainer" parent="MainContainer(Margin)/MenuBackground/VBoxContainer" unique_id=1537908179]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/PastActsInfoContainer(Margin)" unique_id=1029974770]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PastActsInfo" type="Label" parent="MainContainer(Margin)/MenuBackground/VBoxContainer/PastActsInfoContainer(Margin)/Background" unique_id=632640692]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MainContainer(Margin)/MenuBackground/VBoxContainer/InfoContainer(Margin)/ExitButton" to="." method="_on_button_pressed"]
