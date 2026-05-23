@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://djntvai6h802l" path="res://orbit_camera.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://tfcow8rj7qi4" path="res://camera_movement.gd" id="3_h2yge"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
 radius = 5.0
@@ -32,9 +32,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
 transform = Transform3D(-4.3710084e-08, -1, 0, 0.9999702, -4.371139e-08, 0, 0, 0, 0.9999702, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ig7tw")
 
-[node name="Camera3D" type="Camera3D" parent="Airship" unique_id=1200810796]
-transform = Transform3D(2.9802326e-08, 0, -1.0000001, 0, 1.0000002, 0, 1.0000001, 0, 2.9802326e-08, -8.495451, 9.983683, 0.022933962)
-script = ExtResource("3_h2yge")
+[node name="Node3D" type="Node3D" parent="Airship" unique_id=1016149159]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_h2yge")
+
+[node name="Camera3D" type="Camera3D" parent="Airship/Node3D" unique_id=1200810796]
+transform = Transform3D(-1, 8.742277e-08, 0, 8.742278e-08, 0.99999994, 8.742277e-08, 7.642742e-15, 8.742277e-08, -0.99999994, 0, 0, -40)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=189007976]
 transform = Transform3D(0.9989103, -0.04508392, -0.012065864, 0, -0.25853243, 0.9660026, -0.0466706, -0.96494997, -0.2582507, 0, 0, 0)
