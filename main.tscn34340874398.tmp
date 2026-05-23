@@ -1,0 +1,326 @@
+[gd_scene format=3 uid="uid://cqow47bch5ocs"]
+
+[ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://product.gd" id="2_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://tfcow8rj7qi4" path="res://camera_movement.gd" id="3_h2yge"]
+[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://Resources/iron.tres" id="3_kek77"]
+[ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship_landing.gd" id="4_1bvp3"]
+[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://Resources/wood.tres" id="4_4c57u"]
+[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://Resources/wheat.tres" id="5_efxa6"]
+[ext_resource type="Script" uid="uid://vw1uik1lapom" path="res://shipment_menu.gd" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://add_items.gd" id="9_kek77"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
+radius = 5.0
+height = 49.842903
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
+size = Vector3(9, 8, 9)
+
+[node name="Node" type="Node" unique_id=451165689]
+
+[node name="Airship" type="RigidBody3D" parent="." unique_id=1794264092 groups=["Player"]]
+unique_name_in_owner = true
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
+mass = 2000.0
+can_sleep = false
+constant_force = Vector3(0, 9.8, 0)
+script = ExtResource("1_0xm2m")
+products = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("5_efxa6"), ExtResource("4_4c57u")])
+torque = 15000.0
+acceleration_friction = 1.0
+torque_friction = 1.0
+
+[node name="AirShip_Original" parent="Airship" unique_id=1876963269 groups=["Player"] instance=ExtResource("2_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Airship" unique_id=812321393 groups=["Player"]]
+transform = Transform3D(-4.3710084e-08, -1, 0, 0.9999702, -4.371139e-08, 0, 0, 0, 0.9999702, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ig7tw")
+
+[node name="Camera3D" type="Camera3D" parent="Airship" unique_id=1200810796]
+unique_name_in_owner = true
+transform = Transform3D(2.980235e-08, 0, -1.0000001, 0, 1.0000002, 0, 1.0000001, 0, 2.980235e-08, -22.308472, 20.775347, 0.022934569)
+script = ExtResource("3_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=189007976]
+transform = Transform3D(0.9989103, -0.04508392, -0.012065864, 0, -0.25853243, 0.9660026, -0.0466706, -0.96494997, -0.2582507, 0, 0, 0)
+rotation_edit_mode = 1
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=267346465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.319443, -8.023455)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=238372540]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=638531522]
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="Area3D" type="Area3D" parent="StaticBody3D" unique_id=171464579]
+script = ExtResource("4_1bvp3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Area3D" unique_id=1939782668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="ShipmentMenu" type="Control" parent="." unique_id=2107353023]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("9_4c57u")
+
+[node name="MainContainer(Margin)" type="MarginContainer" parent="ShipmentMenu" unique_id=1096150967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="MenuBackground" type="PanelContainer" parent="ShipmentMenu/MainContainer(Margin)" unique_id=1757492509]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground" unique_id=1590822501]
+layout_mode = 2
+
+[node name="InfoContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer" unique_id=758984498]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ExitButton" type="Button" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/InfoContainer(Margin)" unique_id=735504356]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "X"
+
+[node name="MainMenuContainer(HBox)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer" unique_id=1238184006]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RemoveContainer(VBox)" type="VBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)" unique_id=1670421527]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddContainer(VBox)" type="VBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)" unique_id=167388042]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InfoAddContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=603540118]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/InfoAddContainer(Margin)" unique_id=77439586]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/InfoAddContainer(Margin)/Background" unique_id=974921174]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Add items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActAddContainer(HBox Iron)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=1803206938]
+layout_mode = 2
+
+[node name="InfoActContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)" unique_id=2114111225]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/InfoActContainer(Margin)" unique_id=1608309217]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/InfoActContainer(Margin)/Background" unique_id=721105771]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Iron"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActContainer(HBox)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)" unique_id=550122505]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmountContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)" unique_id=247566626]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Amount" type="SpinBox" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AmountContainer(Margin)" unique_id=2104637980]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AddButtonContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)" unique_id=1242887299]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="AddButton" type="Button" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AddButtonContainer(Margin)" unique_id=1967792970 node_paths=PackedStringArray("info")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Add"
+script = ExtResource("9_kek77")
+info = NodePath("../../../InfoActContainer(Margin)/Background/Info")
+item = ExtResource("3_kek77")
+
+[node name="ActAddContainer(HBox Wheat)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=896709081]
+layout_mode = 2
+
+[node name="InfoActContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)" unique_id=898521317]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/InfoActContainer(Margin)" unique_id=1697877366]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/InfoActContainer(Margin)/Background" unique_id=1984289721]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActContainer(HBox)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)" unique_id=540588674]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmountContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)" unique_id=202249205]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Amount" type="SpinBox" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AmountContainer(Margin)" unique_id=1302947996]
+layout_mode = 2
+
+[node name="AddButtonContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)" unique_id=61828403]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="AddButton" type="Button" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AddButtonContainer(Margin)" unique_id=942398124 node_paths=PackedStringArray("info")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Add"
+script = ExtResource("9_kek77")
+info = NodePath("../../../InfoActContainer(Margin)/Background/Info")
+item = ExtResource("5_efxa6")
+
+[node name="ActAddContainer(HBox Wood)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)" unique_id=239554985]
+layout_mode = 2
+
+[node name="InfoActContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)" unique_id=1523203538]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="Panel" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/InfoActContainer(Margin)" unique_id=149014353]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/InfoActContainer(Margin)/Background" unique_id=510373192]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActContainer(HBox)" type="HBoxContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)" unique_id=151527719]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmountContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)" unique_id=442179714]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Amount" type="SpinBox" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AmountContainer(Margin)" unique_id=296067175]
+layout_mode = 2
+
+[node name="AddButtonContainer(Margin)" type="MarginContainer" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)" unique_id=1593244365]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="AddButton" type="Button" parent="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AddButtonContainer(Margin)" unique_id=893405443 node_paths=PackedStringArray("info")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Add"
+script = ExtResource("9_kek77")
+info = NodePath("../../../InfoActContainer(Margin)/Background/Info")
+item = ExtResource("4_4c57u")
+
+[connection signal="body_entered" from="StaticBody3D/Area3D" to="StaticBody3D/Area3D" method="_on_body_entered"]
+[connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/InfoContainer(Margin)/ExitButton" to="ShipmentMenu" method="_on_button_pressed"]
+[connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
+[connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
+[connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
