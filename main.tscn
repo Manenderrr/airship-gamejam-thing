@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://Resources/wood.tres" id="4_4c57u"]
 [ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://Resources/wheat.tres" id="5_efxa6"]
 [ext_resource type="Script" uid="uid://vw1uik1lapom" path="res://shipment_menu.gd" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://di7563q6oq2yp" path="res://hud_menu.gd" id="9_efxa6"]
 [ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://add_items.gd" id="9_kek77"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
@@ -78,6 +79,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_efxa6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=742271321]
 layout_mode = 1
