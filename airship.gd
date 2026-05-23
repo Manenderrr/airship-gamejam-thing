@@ -1,23 +1,29 @@
 extends RigidBody3D
 
-
 var weight: float = 2000.0
 const air_density: float = 1.190
 const airship_density: float = 0.0899
 var g: float = 9.8
 
+@export_group("UI")
 @onready var shipment_menu: = %ShipmentMenu
 
+@export_group("Cargo")
 @export var products: Array[Product]
 @export var crate_size: float = 100
 var products_size: float = 0
 
+@export_group("Ballast")
 @export var airship_capasity: float = 50000.0
 @export var air_ballast_space: float:
 	set(value):
 		air_ballast_space = clamp(value, 0, airship_capasity)
+		air_changed_fraction.emit(air_ballast_space / airship_capasity)
 @export var air_ballast_pump_speed :float = 1000.0
 
+signal air_changed_fraction(new_fraction: float)
+
+@export_group("Engine")
 @export var acceleration: float = 15000.0
 @export var torque: float = 37500.0
 @export var acceleration_friction: float = 10.0

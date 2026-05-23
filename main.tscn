@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://djntvai6h802l" path="res://orbit_camera.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://product.gd" id="2_5vw27"]
-[ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://gfx/airship.fbx" id="2_h2yge"]
 [ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://Resources/iron.tres" id="3_kek77"]
 [ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship_landing.gd" id="4_1bvp3"]
 [ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://Resources/wood.tres" id="4_4c57u"]
 [ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://Resources/wheat.tres" id="5_efxa6"]
 [ext_resource type="Script" uid="uid://vw1uik1lapom" path="res://shipment_menu.gd" id="9_4c57u"]
-[ext_resource type="Script" uid="uid://di7563q6oq2yp" path="res://hud_menu.gd" id="9_efxa6"]
+[ext_resource type="PackedScene" uid="uid://eo30kruldshw" path="res://ui/hud.tscn" id="9_efxa6"]
 [ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://add_items.gd" id="9_kek77"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
@@ -38,19 +38,19 @@ products = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("5
 acceleration_friction = 1.0
 torque_friction = 1.0
 
-[node name="AirShip_Original" parent="Airship" unique_id=1876963269 groups=["Player"] instance=ExtResource("2_h2yge")]
+[node name="Model" parent="Airship" unique_id=25787717 groups=["Player"] instance=ExtResource("2_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Airship" unique_id=812321393 groups=["Player"]]
 transform = Transform3D(-4.3710084e-08, -1, 0, 0.9999702, -4.371139e-08, 0, 0, 0, 0.9999702, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ig7tw")
 
-[node name="Node3D" type="Node3D" parent="Airship" unique_id=1016149159 node_paths=PackedStringArray("camera")]
+[node name="CameraRoot" type="Node3D" parent="Airship" unique_id=1016149159 node_paths=PackedStringArray("camera")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_h2yge")
 camera = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="Airship/Node3D" unique_id=1200810796]
+[node name="Camera3D" type="Camera3D" parent="Airship/CameraRoot" unique_id=1200810796]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 40)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=189007976]
@@ -73,49 +73,7 @@ script = ExtResource("4_1bvp3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 shape = SubResource("BoxShape3D_lquwl")
 
-[node name="HUD" type="Control" parent="." unique_id=1409776072]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("9_efxa6")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=742271321]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/HBoxContainer" unique_id=1397186286]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="HUD/HBoxContainer/MarginContainer" unique_id=2033607357]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "ms"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="HUD/HBoxContainer" unique_id=406103555]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label2" type="Label" parent="HUD/HBoxContainer/MarginContainer2" unique_id=349893441]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "ss"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
 
 [node name="ShipmentMenu" type="Control" parent="." unique_id=2107353023]
 unique_name_in_owner = true
@@ -366,8 +324,11 @@ script = ExtResource("9_kek77")
 info = NodePath("../../../InfoActContainer(Margin)/Background/Info")
 item = ExtResource("4_4c57u")
 
+[connection signal="air_changed_fraction" from="Airship" to="HUD/VBoxContainer/AirMeter" method="set_as_ratio"]
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="StaticBody3D/Area3D" method="_on_body_entered"]
 [connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/InfoContainer(Margin)/ExitButton" to="ShipmentMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Iron)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
 [connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wheat)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
 [connection signal="pressed" from="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" to="ShipmentMenu/MainContainer(Margin)/MenuBackground/VBoxContainer/MainMenuContainer(HBox)/AddContainer(VBox)/ActAddContainer(HBox Wood)/ActContainer(HBox)/AddButtonContainer(Margin)/AddButton" method="_on_pressed"]
+
+[editable path="HUD"]
