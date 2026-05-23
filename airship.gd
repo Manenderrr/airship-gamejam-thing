@@ -35,10 +35,11 @@ func _ready() -> void:
 	air_ballast_space = mass / (air_density - airship_density)
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("takeoff"):
-		air_ballast_space -= air_ballast_pump_speed * delta
-	if Input.is_action_pressed("landing"):
-		air_ballast_space += air_ballast_pump_speed * delta
+	if shipment_menu.in_shipment_menu == false:
+		if Input.is_action_pressed("takeoff"):
+			air_ballast_space -= air_ballast_pump_speed * delta
+		if Input.is_action_pressed("landing"):
+			air_ballast_space += air_ballast_pump_speed * delta
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:

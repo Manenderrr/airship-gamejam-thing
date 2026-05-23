@@ -34,7 +34,6 @@ can_sleep = false
 constant_force = Vector3(0, 9.8, 0)
 script = ExtResource("1_0xm2m")
 products = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("5_efxa6"), ExtResource("4_4c57u")])
-torque = 15000.0
 acceleration_friction = 1.0
 torque_friction = 1.0
 
@@ -71,6 +70,49 @@ script = ExtResource("4_1bvp3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Area3D" unique_id=1939782668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 shape = SubResource("BoxShape3D_lquwl")
+
+[node name="HUD" type="Control" parent="." unique_id=1409776072]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=742271321]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/HBoxContainer" unique_id=1397186286]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="HUD/HBoxContainer/MarginContainer" unique_id=2033607357]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "ms"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/HBoxContainer" unique_id=406103555]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label2" type="Label" parent="HUD/HBoxContainer/MarginContainer2" unique_id=349893441]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "ss"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ShipmentMenu" type="Control" parent="." unique_id=2107353023]
 unique_name_in_owner = true
@@ -227,7 +269,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Item"
+text = "wheat"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -285,7 +327,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Item"
+text = "wood"
 horizontal_alignment = 1
 vertical_alignment = 1
 
