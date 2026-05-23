@@ -1,12 +1,13 @@
 extends Camera3D
 
 var mouse_sensitivity = 0.005
+@onready var shipment_menu: = %ShipmentMenu
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and shipment_menu.in_shipment_menu == false:
 		rotation.y -= event.relative.x * mouse_sensitivity
 		rotation.x -= event.relative.y * mouse_sensitivity
 		rotation.x = clamp(rotation.x, deg_to_rad(-60), deg_to_rad(30))
