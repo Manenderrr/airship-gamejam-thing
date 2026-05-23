@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bmorjhsg5xpq2"]
+
+[ext_resource type="Script" uid="uid://b7gtvcf64ug4e" path="res://ui/main_menu.gd" id="1_t7e0r"]
+[ext_resource type="PackedScene" uid="uid://cqow47bch5ocs" path="res://main.tscn" id="2_0dkrt"]
+
+[sub_resource type="Theme" id="Theme_gl0q7"]
+default_font_size = 32
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 10
+
+[node name="MainMenu" type="Control" unique_id=593655146]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_gl0q7")
+script = ExtResource("1_t7e0r")
+play_scene = ExtResource("2_0dkrt")
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=752393537]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.0
+offset_top = -55.0
+offset_right = 127.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="Buttons" unique_id=927302789]
+layout_mode = 2
+text = "Играть"
+
+[node name="Quit" type="Button" parent="Buttons" unique_id=204474489]
+layout_mode = 2
+text = "Выйти"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=104001395]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -238.0
+offset_right = 377.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2011643866]
+layout_mode = 2
+
+[node name="AuthorsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=407146748]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/AuthorsContainer" unique_id=944628895]
+layout_mode = 2
+text = "Авторы"
+horizontal_alignment = 1
+
+[node name="Authors" type="Label" parent="PanelContainer/MarginContainer/AuthorsContainer" unique_id=1744648120]
+layout_mode = 2
+text = "Аксёнов Арсений
+Гурьянов Макар
+Климин Арсалан
+Кривоногих Владислав"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer" unique_id=1471164721]
+layout_mode = 2
+
+[connection signal="pressed" from="Buttons/Play" to="." method="play"]
+[connection signal="pressed" from="Buttons/Quit" to="." method="quit_game"]

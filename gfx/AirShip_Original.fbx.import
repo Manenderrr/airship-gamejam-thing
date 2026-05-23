@@ -3,7 +3,6 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-<<<<<<<< Updated upstream:gfx/AirShip_Original.fbx.import
 uid="uid://beved6boexd4"
 path="res://.godot/imported/AirShip_Original.fbx-8380a0f9b1807347b683940c2cac7627.scn"
 
@@ -11,15 +10,6 @@ path="res://.godot/imported/AirShip_Original.fbx-8380a0f9b1807347b683940c2cac762
 
 source_file="res://gfx/AirShip_Original.fbx"
 dest_files=["res://.godot/imported/AirShip_Original.fbx-8380a0f9b1807347b683940c2cac7627.scn"]
-========
-uid="uid://bi1rbqrej4qu"
-path="res://.godot/imported/AirShip_Original.fbx-07591bd9fcdc1657f84dd6e3ec59f03e.scn"
-
-[deps]
-
-source_file="res://models/AirShip_Original.fbx"
-dest_files=["res://.godot/imported/AirShip_Original.fbx-07591bd9fcdc1657f84dd6e3ec59f03e.scn"]
->>>>>>>> Stashed changes:models/AirShip_Original.fbx.import
 
 [params]
 

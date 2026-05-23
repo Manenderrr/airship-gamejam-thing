@@ -1,10 +1,5 @@
 extends RigidBody3D
 
-
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 @export var weight: float = 2000.0
 const air_density: float = 1.190
 const airship_density: float = 0.0899
@@ -13,30 +8,19 @@ const g: float = 9.8
 @export_group("UI")
 @onready var shipment_menu: = %ShipmentMenu
 
-<<<<<<< Updated upstream
 @export_group("Cargo")
-@export var products: Array[Product]
-@export var crate_size: float = 100:
-	set(value):
-			crate_size = max(0, value)
-var products_size: float = 0
-=======
 @export var products: Array[Product] = []
 var crate_size: float = 100:
 	set(value):
 			crate_size = max(0, value)
->>>>>>> Stashed changes
 
 @export_group("Ballast")
 @export var airship_capasity: float = 50000.0
 @export var air_in_ballast: float:
 	set(value):
 		air_in_ballast = clamp(value, 0, airship_capasity)
-<<<<<<< Updated upstream
 		air_changed_fraction.emit(air_in_ballast / airship_capasity)
-		
-=======
->>>>>>> Stashed changes
+
 @export var air_ballast_pump_speed :float = 1000.0
 
 signal air_changed_fraction(new_fraction: float)
