@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship.gd" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://ba27sa137jhjv" path="res://look_at_node3d.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://tfcow8rj7qi4" path="res://camera_movement.gd" id="3_h2yge"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
 radius = 5.0
@@ -17,29 +17,31 @@ size = Vector3(10, 1, 10)
 [node name="Node" type="Node" unique_id=451165689]
 
 [node name="Airship" type="RigidBody3D" parent="." unique_id=1794264092]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
+mass = 2000.0
 can_sleep = false
 constant_force = Vector3(0, 9.8, 0)
 script = ExtResource("1_0xm2m")
+torque = 1000000.0
+acceleration_friction = 1.0
 
 [node name="AirShip_Original" parent="Airship" unique_id=1876963269 instance=ExtResource("2_h2yge")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.19, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Airship" unique_id=812321393]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -3.1323001, -1.3691992e-07, 0)
+transform = Transform3D(-4.3710084e-08, -1, 0, 0.9999702, -4.371139e-08, 0, 0, 0, 0.9999702, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ig7tw")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1200810796 node_paths=PackedStringArray("objectToTrack")]
-transform = Transform3D(-0.29031393, 0.7491025, -0.59545225, 0, 0.6222517, 0.78281724, 0.9569315, 0.22726275, -0.18064833, -17.696396, 23.264744, -5.3687334)
-script = ExtResource("1_ig7tw")
-objectToTrack = NodePath("../Airship")
+[node name="Camera3D" type="Camera3D" parent="Airship" unique_id=1200810796]
+transform = Transform3D(2.9802326e-08, 0, -1.0000001, 0, 1.0000002, 0, 1.0000001, 0, 2.9802326e-08, -8.495451, 9.983683, 0.022933962)
+script = ExtResource("3_h2yge")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=189007976]
 transform = Transform3D(0.9989103, -0.04508392, -0.012065864, 0, -0.25853243, 0.9660026, -0.0466706, -0.96494997, -0.2582507, 0, 0, 0)
 rotation_edit_mode = 1
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=267346465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22.66133, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.319443, 24.02645)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=238372540]
 mesh = SubResource("BoxMesh_ig7tw")
