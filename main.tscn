@@ -1,17 +1,15 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://djntvai6h802l" path="res://orbit_camera.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://product.gd" id="2_5vw27"]
 [ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://tfcow8rj7qi4" path="res://camera_movement.gd" id="3_h2yge"]
 [ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://Resources/iron.tres" id="3_kek77"]
 [ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship_landing.gd" id="4_1bvp3"]
 [ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://Resources/wood.tres" id="4_4c57u"]
 [ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://Resources/wheat.tres" id="5_efxa6"]
 [ext_resource type="Script" uid="uid://vw1uik1lapom" path="res://shipment_menu.gd" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://add_items.gd" id="9_kek77"]
-[ext_resource type="Script" uid="uid://djntvai6h802l" path="res://orbit_camera.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bi1rbqrej4qu" path="res://AirShip_Original.fbx" id="2_h2yge"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
 radius = 5.0
