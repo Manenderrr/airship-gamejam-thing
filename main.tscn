@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://cljo0h54ukqrs" path="res://main.gd" id="1_dg77c"]
-[ext_resource type="PackedScene" uid="uid://byu3pn3hjofpl" path="res://airship/airship.scn" id="3_5vw27"]
+[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/airship.tscn" id="3_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
 [ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship/airship_landing.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://ui/shipment_menu/shipment_menu.tscn" id="9_4c57u"]
