@@ -11,7 +11,7 @@ var in_mission: bool = false
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	var check_products = 0
 	if body.is_in_group("Player"):
-		
+		if body is Airship and not body.alive: return
 		if mission_system.mission_number == port_number:
 			for prod in products:
 				if prod.mission_amount <= prod.amount:

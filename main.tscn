@@ -16,9 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://b2rfxq0u71esh" path="res://soundtrack.mp3" id="16_2cqfq"]
-[ext_resource type="Script" uid="uid://pqdkg45bmxvu" path="res://death_zone.gd" id="17_yaehf"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yaehf"]
 
 [node name="Node" type="Node" unique_id=1065634655]
 script = ExtResource("1_dg77c")
@@ -50,14 +47,15 @@ autoplay = true
 parameters/looping = true
 
 [node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
-transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 22.732784, 56.312283, -85.71045)
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 22.733, 59.30139, -85.71)
 camera_rotation = Vector3(0, -90, 0)
 
-[node name="Airship" parent="." unique_id=395682466 groups=["Player"] instance=ExtResource("3_5vw27")]
+[node name="Airship" parent="." unique_id=395682466 node_paths=PackedStringArray("hud") groups=["Player"] instance=ExtResource("3_5vw27")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22.732784, 56.312283, -85.71045)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22.733, 59.30139, -85.71)
 linear_damp = 0.25
 angular_damp = 0.25
+hud = NodePath("../HUD")
 thrust_change_speed = 6000.0
 max_thrust = 60000.0
 
@@ -68,7 +66,10 @@ update_rotation = false
 update_scale = false
 
 [node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
-size_flags_horizontal = 1
+
+[node name="DeathWarning" parent="HUD" index="1" unique_id=739909842]
+offset_left = -115.5
+offset_right = 115.5
 
 [node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
 airship = NodePath("../Airship")
@@ -84,17 +85,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.33374, 0, 1757.3436)
 [node name="station3" parent="." unique_id=1154857980 instance=ExtResource("15_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1335.4254, 0, 992.26416)
 
-[node name="BottomDeathZone" type="Area3D" parent="." unique_id=1913327954 node_paths=PackedStringArray("ui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -320.07156, -94.150986, 0)
-script = ExtResource("17_yaehf")
-ui = NodePath("../HUD/DeathWarning")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BottomDeathZone" unique_id=250518459]
-shape = SubResource("WorldBoundaryShape3D_yaehf")
-
 [connection signal="on_pause" from="." to="Pause" method="pause"]
 [connection signal="air_capacity_changed" from="Airship" to="HUD/MarginContainer/HBoxContainer1/AirMeter" method="set_max"]
-[connection signal="vertical_speed_changed" from="Airship" to="HUD" method="_on_airship_air_changed"]
 [connection signal="air_changed" from="Airship" to="HUD/MarginContainer/HBoxContainer1/AirMeter" method="set_value"]
 [connection signal="max_thrust_changed" from="Airship" to="HUD/MarginContainer/HBoxContainer1/VBoxContainer/ThrustMeter" method="set_max"]
 [connection signal="min_thrust_changed" from="Airship" to="HUD/MarginContainer/HBoxContainer1/VBoxContainer/ThrustMeter" method="set_min"]
@@ -102,6 +94,8 @@ shape = SubResource("WorldBoundaryShape3D_yaehf")
 [connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
 [connection signal="thrust_changed" from="Airship" to="HUD" method="_on_airship_thrust_changed"]
 [connection signal="thrust_changed" from="Airship" to="HUD/MarginContainer/HBoxContainer1/VBoxContainer/ThrustMeter" method="set_value"]
+[connection signal="vertical_speed_changed" from="Airship" to="HUD" method="_on_airship_air_changed"]
+[connection signal="on_timeout" from="HUD/DeathWarning" to="Airship" method="die"]
 [connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
 [connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
 

@@ -12,4 +12,4 @@ func unpause() -> void:
 
 func main_menu() -> void:
 	unpause()
-	get_tree().change_scene_to_packed(SceneManager.main_menu)
+	SceneManager.start_main_menu()

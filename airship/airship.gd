@@ -1,4 +1,7 @@
+class_name Airship
 extends RigidBody3D
+
+@export var hud: HUD
 
 ## The mass of the airship itself.
 @export var initial_mass: float = 2000.0
@@ -77,6 +80,17 @@ signal on_controls_enable
 signal on_controls_disable
 signal on_controls_change(new_state: bool)
 
+@export_group("Death")
+var alive: bool = true
+## If Y is above this value, the death timeout starts.
+@export var max_y: float = 70.0
+## If Y is below this value, the death timeout starts.
+@export var min_y: float = -150.0
+func die():
+	alive = false
+	disable_controls()
+	hud.show_death_screen()
+
 func _ready() -> void:
 	# Trigger "changed" signals to initialise things that depend on them
 	vertical_speed_changed.emit(air_in_ballast)
@@ -97,9 +111,18 @@ func _process(delta: float) -> void:
 		air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
 
 		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
-	else:
+	elif alive:
 		thrust = 0
 		air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
+	else:
+		thrust = 0
+		air_in_ballast = 0
+		return
+	
+	if not hud.death_warning.counting:
+		if position.y > max_y: hud.death_warning.initiate_too_high()
+		elif position.y < min_y: hud.death_warning.initiate_too_low()
+	elif position.y > min_y and position.y < max_y: hud.death_warning.stop()
 	
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
