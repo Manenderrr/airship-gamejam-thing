@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://eo30kruldshw"]
+
+[ext_resource type="Script" uid="uid://di7563q6oq2yp" path="res://ui/hud.gd" id="1_ahhtf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbyyf"]
+
+[sub_resource type="Theme" id="Theme_276te"]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_rbyyf")
+
+[node name="HUD" type="Control" unique_id=1571720740]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_276te")
+script = ExtResource("1_ahhtf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=18326334]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 131.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2027317795]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=183031769]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="YVectorInfo" type="Panel" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=2061302711]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=1658317206]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="XVectorInfo" type="Panel" parent="HBoxContainer/VBoxContainer/MarginContainer2" unique_id=1761035850]
+layout_mode = 2
+size_flags_vertical = 3

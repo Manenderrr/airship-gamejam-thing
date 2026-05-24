@@ -7,8 +7,8 @@ var item: Product
 @onready var amount_info: Label = %AmountInfo
 @onready var amount = %Amount
 
-@onready var airship: RigidBody3D = %Airship
-@onready var past_acts_info: Label = %PastActsInfo
+var airship: RigidBody3D
+var past_acts_info: Label
 
 func _ready() -> void:
 	if item and past_acts_info:

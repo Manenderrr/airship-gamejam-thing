@@ -22,7 +22,6 @@ var crate_size: float = 100:
 		crate_size = max(0, value)
 
 @export_group("Ballast")
-@export var envelope: Node3D
 @export var air_capacity: float = 50000.0:
 	set(value):
 		air_capacity = value
@@ -32,7 +31,7 @@ signal air_capacity_changed(new_capacity: float)
 var air_in_ballast: float:
 	set(value):
 		air_in_ballast = clampf(value, 0, air_capacity)
-		air_changed.emit(air_in_ballast)
+		air_changed.emit((g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY) - g * mass) / mass)
 signal air_changed(new_value: float)
 
 @export var air_ballast_pump_speed: float = 1000.0
@@ -46,11 +45,14 @@ signal air_changed(new_value: float)
 		min_thrust_changed.emit(-max_thrust)
 signal max_thrust_changed(new_max_thrust: float)
 signal min_thrust_changed(new_min_thrust: float)
+@export var stabilization_force: float = 15000.0
+@export var stabilization_damp: float = 5.0
+
 
 var thrust: float = 0:
 	set(value):
 		thrust = clampf(value, -max_thrust, max_thrust)
-		thrust_changed.emit(thrust)
+		thrust_changed.emit(thrust/mass)
 signal thrust_changed(new_thrust: float)
 
 @export var torque: float = 37500.0
@@ -74,8 +76,6 @@ signal on_controls_disable
 signal on_controls_change(new_state: bool)
 
 func _ready() -> void:
-	assert(envelope, "envelope is not set")
-
 	# Trigger "changed" signals to initialise things that depend on them
 	air_changed.emit(air_in_ballast)
 	air_capacity_changed.emit(air_capacity)
@@ -95,7 +95,10 @@ func _process(delta: float) -> void:
 		air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
 
 		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
-
+	else:
+		thrust = 0
+		air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
+	
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
 		state.apply_central_force(-basis.z * thrust)
@@ -103,11 +106,15 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var yaw_axis: = Input.get_axis("airship_yaw_right", "airship_yaw_left")
 		state.apply_torque(basis.y * yaw_axis * torque)
 
-		var pitch_axis: = Input.get_axis("airship_pitch_down", "airship_pitch_up")
-		state.apply_torque(basis.x * pitch_axis * torque)
-
-		var roll_axis: = Input.get_axis("airship_roll_right", "airship_roll_left")
-		state.apply_torque(basis.z * roll_axis * torque)
-
 	#airship takeoff and landing
-	state.apply_force(Vector3.UP * g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY), envelope.global_position - global_position)
+	state.apply_central_force(Vector3.UP * g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY))
+
+func _physics_process(_delta: float) -> void:
+	var current_up: Vector3 = global_transform.basis.y
+	var target_up: Vector3 = Vector3.UP
+	
+	var error_axis: Vector3 = current_up.cross(target_up)
+	
+	if error_axis.length() > 0.001:
+		var torque: Vector3 = error_axis * stabilization_force - angular_velocity * stabilization_damp * mass
+		apply_torque(torque)

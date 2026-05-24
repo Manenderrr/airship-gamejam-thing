@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://cljo0h54ukqrs" path="res://main.gd" id="1_dg77c"]
-[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/airship.tscn" id="3_5vw27"]
+[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/Airship.tscn" id="3_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
 [ext_resource type="Script" uid="uid://sginqaxrkga4" path="res://add_mission.gd" id="7_5vw27"]
 [ext_resource type="PackedScene" uid="uid://3ogx63m77hkd" path="res://port.tscn" id="7_272bh"]
@@ -25,10 +25,12 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -52)
 center_of_mass_mode = 0
 center_of_mass = Vector3(0, 0, 0)
-linear_damp = 0.0
-angular_damp = 0.0
-acceleration = 1000000.0
-torque = 1000000.0
+linear_damp = 2.0
+angular_damp = 2.0
+thrust_change_speed = 10000.0
+max_thrust = 1000000.0
+stabilization_force = 1000000.0
+torque = 10000.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
@@ -40,10 +42,9 @@ update_scale = false
 transform = Transform3D(0.9989103, -0.04508392, -0.012065864, 0, -0.25853243, 0.9660026, -0.0466706, -0.96494997, -0.2582507, 0, 0, 0)
 rotation_edit_mode = 1
 
-[node name="HUD" parent="." unique_id=113001571 instance=ExtResource("9_efxa6")]
+[node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
 
-[node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("Airship") instance=ExtResource("9_4c57u")]
-airship = NodePath("../Airship")
+[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
 
 [node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]
 
@@ -65,14 +66,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.458355, -5.4886265, -83.3
 port_number = 2
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
-[connection signal="air_capacity_changed" from="Airship" to="HUD/HBoxContainer/AirMeter" method="set_max"]
-[connection signal="air_changed" from="Airship" to="HUD/HBoxContainer/AirMeter" method="set_value"]
-[connection signal="max_thrust_changed" from="Airship" to="HUD/HBoxContainer/ThrustMeter" method="set_max"]
-[connection signal="min_thrust_changed" from="Airship" to="HUD/HBoxContainer/ThrustMeter" method="set_min"]
+[connection signal="air_changed" from="Airship" to="HUD" method="_on_airship_air_changed"]
 [connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
 [connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
-[connection signal="thrust_changed" from="Airship" to="HUD/HBoxContainer/ThrustMeter" method="set_value"]
+[connection signal="thrust_changed" from="Airship" to="HUD" method="_on_airship_thrust_changed"]
 [connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
 [connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
-
-[editable path="HUD"]
