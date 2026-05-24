@@ -1,6 +1,8 @@
 extends Resource
 class_name Product
 
+var mission_amount: int = 0
+
 @export var name: String = ""
 @export var size: float = 0:
 	set(value):

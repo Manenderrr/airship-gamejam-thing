@@ -5,12 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
 [ext_resource type="Script" uid="uid://sginqaxrkga4" path="res://add_mission.gd" id="7_5vw27"]
 [ext_resource type="PackedScene" uid="uid://3ogx63m77hkd" path="res://port.tscn" id="7_272bh"]
-[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://resources/product.gd" id="8_dg77c"]
 [ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://ui/shipment_menu/shipment_menu.tscn" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://eo30kruldshw" path="res://ui/hud.tscn" id="9_efxa6"]
-[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="9_ycdy4"]
-[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="10_w48qg"]
-[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="11_vivmo"]
 [ext_resource type="PackedScene" uid="uid://dqasr5tbnenrr" path="res://ui/pause.tscn" id="12_dg77c"]
 
 [node name="Node" type="Node" unique_id=1065634655]
@@ -23,8 +19,8 @@ camera_rotation = Vector3(0, -90, 0)
 [node name="airship" parent="." unique_id=395682466 instance=ExtResource("3_5vw27")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -52)
-acceleration = 1000000.0
-torque = 1000000.0
+acceleration = 25000.0
+torque = 25000.0
 acceleration_friction = 1.0
 torque_friction = 1.0
 
@@ -48,11 +44,11 @@ airship = NodePath("../airship")
 [node name="Ports" type="Node3D" parent="." unique_id=1213237564 node_paths=PackedStringArray("ports")]
 unique_name_in_owner = true
 script = ExtResource("7_5vw27")
-products = Array[ExtResource("8_dg77c")]([ExtResource("10_w48qg"), ExtResource("11_vivmo"), ExtResource("9_ycdy4")])
 ports = [NodePath("Port"), NodePath("Port2"), NodePath("Port3")]
 
 [node name="Port" parent="Ports" unique_id=1332543940 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.952761, -6.9933567, -15.377541)
+port_number = 0
 
 [node name="Port2" parent="Ports" unique_id=703603571 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.402458, -11.004257, -39.392998)

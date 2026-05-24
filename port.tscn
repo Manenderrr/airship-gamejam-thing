@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://3ogx63m77hkd"]
 
 [ext_resource type="Script" uid="uid://c0ptx3tk3juyd" path="res://port.gd" id="1_yon1j"]
+[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://resources/product.gd" id="2_2se63"]
+[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="3_l4uei"]
+[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="4_5m4b3"]
+[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="5_ygjlq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 size = Vector3(10, 1, 10)
@@ -8,19 +12,12 @@ size = Vector3(10, 1, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
 size = Vector3(10, 1, 10)
 
-[sub_resource type="GDScript" id="GDScript_krwo4"]
-script/source = "extends Area3D
-
-
-func _on_body_entered(body: Node3D) -> void:
-	pass
-"
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 size = Vector3(9, 12.321655, 9)
 
 [node name="Port" type="StaticBody3D" unique_id=1332543940]
 script = ExtResource("1_yon1j")
+products = Array[ExtResource("2_2se63")]([ExtResource("3_l4uei"), ExtResource("4_5m4b3"), ExtResource("5_ygjlq")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1058375144]
 mesh = SubResource("BoxMesh_ig7tw")
@@ -29,7 +26,6 @@ mesh = SubResource("BoxMesh_ig7tw")
 shape = SubResource("BoxShape3D_0xm2m")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1384957385]
-script = SubResource("GDScript_krwo4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=350575825]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6608276, 0)

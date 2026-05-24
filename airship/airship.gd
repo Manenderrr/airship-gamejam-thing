@@ -6,8 +6,6 @@ const air_density: float = 1.190
 const airship_density: float = 0.0899
 const g: float = 9.8
 
-var mission_number: int = -1
-
 @export_group("Cargo")
 @export var products: Array[Product] = []
 var crate_size: float = 100:
@@ -16,7 +14,7 @@ var crate_size: float = 100:
 
 @export_group("Ballast")
 @export var airship_capasity: float = 50000.0
-@export var air_in_ballast: float:
+var air_in_ballast: float:
 	set(value):
 		air_in_ballast = clamp(value, 0, airship_capasity)
 		air_changed_fraction.emit(air_in_ballast / airship_capasity)
