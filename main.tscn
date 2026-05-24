@@ -63,7 +63,7 @@ airship = NodePath("../Airship")
 [connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
 [connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="StaticBody3D/Area3D" method="_on_body_entered"]
-[connection signal="on_appear" from="ShipmentMenu" to="CameraRoot" method="lock"]
-[connection signal="on_disappear" from="ShipmentMenu" to="CameraRoot" method="unlock"]
+[connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
+[connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
 
 [editable path="HUD"]
