@@ -1,7 +1,8 @@
 extends StaticBody3D
 
 @onready var shipment_menu: Control = %ShipmentMenu
-@onready var mission_system: Node3D = %Ports
+@onready var airship: RigidBody3D = %Airship
+@onready var mission_system: Node3D = $".."
 @export var port_number: int
 @export var products: Array[Product] = []
 

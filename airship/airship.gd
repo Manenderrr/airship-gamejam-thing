@@ -1,9 +1,18 @@
 extends RigidBody3D
 
-@export var weight: float = 2000.0
-var change_mass: float = 0
-const air_density: float = 1.190
-const airship_density: float = 0.0899
+## The mass of the airship itself.
+@export var initial_mass: float = 2000.0
+
+## The totol mass of the cargo.
+var cargo_mass: float = 0
+func update_cargo_mass():
+	for prod in products:
+		if prod:
+			if crate_size >= prod.size * prod.amount:
+				cargo_mass += prod.weight * prod.amount
+
+const AIR_DENSITY: float = 1.190
+const AIRSHIP_DENSITY: float = 0.0899
 const g: float = 9.8
 
 @export_group("Cargo")
@@ -14,18 +23,36 @@ var crate_size: float = 100:
 
 @export_group("Ballast")
 @export var envelope: Node3D
-@export var airship_capacity: float = 50000.0
-@export var air_in_ballast: float:
+@export var air_capacity: float = 50000.0:
 	set(value):
-		air_in_ballast = clamp(value, 0, airship_capacity)
-		air_changed_fraction.emit(air_in_ballast / airship_capacity)
+		air_capacity = value
+		air_capacity_changed.emit(value)
+signal air_capacity_changed(new_capacity: float)
 
-@export var air_ballast_pump_speed :float = 1000.0
+var air_in_ballast: float:
+	set(value):
+		air_in_ballast = clampf(value, 0, air_capacity)
+		air_changed.emit(air_in_ballast)
+signal air_changed(new_value: float)
 
-signal air_changed_fraction(new_fraction: float)
+@export var air_ballast_pump_speed: float = 1000.0
 
 @export_group("Engine")
-@export var acceleration: float = 15000.0
+@export var thrust_change_speed: float = 1500.0
+@export var max_thrust: float = 15000.0:
+	set(value):
+		max_thrust = value
+		max_thrust_changed.emit(max_thrust)
+		min_thrust_changed.emit(-max_thrust)
+signal max_thrust_changed(new_max_thrust: float)
+signal min_thrust_changed(new_min_thrust: float)
+
+var thrust: float = 0:
+	set(value):
+		thrust = clampf(value, -max_thrust, max_thrust)
+		thrust_changed.emit(thrust)
+signal thrust_changed(new_thrust: float)
+
 @export var torque: float = 37500.0
 
 @export_group("Controls")
@@ -49,24 +76,29 @@ signal on_controls_change(new_state: bool)
 func _ready() -> void:
 	assert(envelope, "envelope is not set")
 
-	mass = weight
+	# Trigger "changed" signals to initialise things that depend on them
+	air_changed.emit(air_in_ballast)
+	air_capacity_changed.emit(air_capacity)
+	thrust_changed.emit(thrust)
+	max_thrust_changed.emit(max_thrust)
+	min_thrust_changed.emit(-max_thrust)
+
+	mass = initial_mass
 	for prod in products:
 		if prod:
 			mass += prod.weight * prod.amount
 
-	air_in_ballast = mass / (air_density - airship_density)
+	air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
 
 func _process(delta: float) -> void:
 	if controls_enabled:
-		if Input.is_action_pressed("airship_ascend"):
-			air_in_ballast -= air_ballast_pump_speed * delta
-		if Input.is_action_pressed("airship_descend"):
-			air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
+		air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
+
+		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
-		var thrust_axis: = Input.get_axis("airship_back", "airship_forward")
-		state.apply_central_force(-basis.z * thrust_axis * acceleration)
+		state.apply_central_force(-basis.z * thrust)
 
 		var yaw_axis: = Input.get_axis("airship_yaw_right", "airship_yaw_left")
 		state.apply_torque(basis.y * yaw_axis * torque)
@@ -78,22 +110,4 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.apply_torque(basis.z * roll_axis * torque)
 
 	#airship takeoff and landing
-	state.apply_force(Vector3.UP * g * air_in_ballast * (air_density - airship_density), envelope.global_position - global_position)
-
-func add_mass():
-	for prod in products:
-		if prod:
-			if crate_size >= prod.size * prod.amount:
-				change_mass += prod.weight * prod.amount
-	to_change_mass()
-
-func remove_mass():
-	for prod in products:
-		if prod:
-			change_mass += prod.weight * prod.amount
-	to_change_mass()
-
-func to_change_mass():
-	mass = change_mass + weight
-	air_in_ballast = mass / (air_density - airship_density)
-	change_mass = 0
+	state.apply_force(Vector3.UP * g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY), envelope.global_position - global_position)

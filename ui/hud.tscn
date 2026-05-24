@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://di7563q6oq2yp" path="res://ui/hud.gd" id="1_ahhtf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbyyf"]
+
+[sub_resource type="Theme" id="Theme_276te"]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_rbyyf")
+
 [node name="HUD" type="Control" unique_id=1571720740]
 layout_mode = 3
 anchors_preset = 15
@@ -9,54 +15,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_276te")
 script = ExtResource("1_ahhtf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=485500224]
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=18326334]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 300.0
+offset_bottom = 300.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1219496803]
+[node name="AirMeter" type="ProgressBar" parent="HBoxContainer2" unique_id=1517267221]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1323148995]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer" unique_id=1170630168]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "ms"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=247813924]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2" unique_id=183632782]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "ss"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=18326334]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="AirMeter" type="ProgressBar" parent="VBoxContainer/HBoxContainer2" unique_id=1517267221]
-custom_minimum_size = Vector2(20, 300)
-layout_mode = 2
-size_flags_horizontal = 0
+size_flags_vertical = 1
 theme_type_variation = &"AirMeter"
+step = 0.0
+allow_lesser = true
 fill_mode = 2
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2" unique_id=2017516631]
+layout_mode = 2
+
+[node name="ThrustMeter" type="ProgressBar" parent="HBoxContainer2" unique_id=2070787376]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.0
+allow_lesser = true
 show_percentage = false

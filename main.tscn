@@ -65,10 +65,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.458355, -5.4886265, -83.3
 port_number = 2
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
-[connection signal="air_changed_fraction" from="airship" to="HUD/VBoxContainer/HBoxContainer2/AirMeter" method="set_as_ratio"]
-[connection signal="on_controls_disable" from="airship" to="CameraRoot" method="lock"]
-[connection signal="on_controls_enable" from="airship" to="CameraRoot" method="unlock"]
-[connection signal="on_appear" from="ShipmentMenu" to="airship" method="disable_controls"]
-[connection signal="on_disappear" from="ShipmentMenu" to="airship" method="enable_controls"]
+[connection signal="air_capacity_changed" from="Airship" to="HUD/VBoxContainer/HBoxContainer2/VBoxContainer/AirMeter" method="set_max"]
+[connection signal="air_changed" from="Airship" to="HUD/VBoxContainer/HBoxContainer2/VBoxContainer/AirMeter" method="set_value"]
+[connection signal="max_thrust_changed" from="Airship" to="HUD/VBoxContainer/HBoxContainer2/ThrustMeter" method="set_max"]
+[connection signal="min_thrust_changed" from="Airship" to="HUD/VBoxContainer/HBoxContainer2/ThrustMeter" method="set_min"]
+[connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
+[connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
+[connection signal="thrust_changed" from="Airship" to="HUD/VBoxContainer/HBoxContainer2/ThrustMeter" method="set_value"]
+[connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
+[connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
 
 [editable path="HUD"]

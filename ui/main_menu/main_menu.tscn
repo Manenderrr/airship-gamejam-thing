@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bmorjhsg5xpq2"]
 
-[ext_resource type="Script" uid="uid://b7gtvcf64ug4e" path="res://ui/main_menu.gd" id="1_t7e0r"]
-[ext_resource type="PackedScene" uid="uid://cqow47bch5ocs" path="res://main.tscn" id="2_0dkrt"]
+[ext_resource type="Script" uid="uid://b7gtvcf64ug4e" path="res://ui/main_menu/main_menu.gd" id="1_t7e0r"]
+[ext_resource type="PackedScene" uid="uid://owu2w61ngh5c" path="res://ui/main_menu/main_menu_scene.fbx" id="2_mu8pm"]
 
 [sub_resource type="Theme" id="Theme_gl0q7"]
 default_font_size = 32
@@ -17,9 +17,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.002323476
 theme = SubResource("Theme_gl0q7")
 script = ExtResource("1_t7e0r")
-play_scene = ExtResource("2_0dkrt")
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=752393537]
 layout_mode = 1
@@ -73,5 +73,21 @@ text = "Аксёнов Арсений
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer" unique_id=1471164721]
 layout_mode = 2
 
+[node name="Node3D" type="Node3D" parent="." unique_id=1855483947]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" unique_id=1110572282]
+transform = Transform3D(1, 0, 0, 0, 0.7823799, 0.6228014, 0, -0.6228014, 0.7823799, 57.90045, 42.436783, 167.69617)
+light_angular_distance = 0.5
+
+[node name="main_menu_scene" parent="Node3D" unique_id=1105258777 instance=ExtResource("2_mu8pm")]
+
+[node name="Куб_931" parent="Node3D/main_menu_scene" index="9" unique_id=1058897067]
+transform = Transform3D(2.2649372e-06, -30.000002, -1.3113417e-06, 0, -1.3113417e-06, 30.000002, -30.000002, -2.2649372e-06, -9.900355e-14, -41.720158, -33.204823, -82.84854)
+
+[node name="Куб_932" parent="Node3D/main_menu_scene" index="10" unique_id=1674123092]
+transform = Transform3D(111.88675, 12.868223, -1.6941417, 1.6941304, -7.4294834, -113.84295, 25.736443, -55.454327, 14.858961, -208.9705, -32.383255, 102.86603)
+
 [connection signal="pressed" from="Buttons/Play" to="." method="play"]
 [connection signal="pressed" from="Buttons/Quit" to="." method="quit_game"]
+
+[editable path="Node3D/main_menu_scene"]
