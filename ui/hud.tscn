@@ -8,13 +8,12 @@
 ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_rbyyf")
 
-[node name="HUD" type="Control" unique_id=1571720740 node_paths=PackedStringArray("y_vector_info")]
+[node name="HUD" type="Control" unique_id=1571720740]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
 theme = SubResource("Theme_276te")
 script = ExtResource("1_ahhtf")
-y_vector_info = NodePath("HBoxContainer/VBoxContainer/MarginContainer/YVectorInfoBG/MarginContainer/HBoxContainer/YVectorInfo")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=18326334]
 layout_mode = 0

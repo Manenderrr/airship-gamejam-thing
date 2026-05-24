@@ -26,7 +26,7 @@ script = ExtResource("1_dg77c")
 unique_name_in_owner = true
 script = ExtResource("7_5vw27")
 products = Array[ExtResource("8_dg77c")]([ExtResource("10_w48qg"), ExtResource("11_vivmo"), ExtResource("9_ycdy4")])
-ports = [null, null, null]
+ports = [NodePath("Port"), NodePath("Port2"), NodePath("Port3")]
 
 [node name="Port" parent="Ports" unique_id=1332543940 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.04897, 3.3751822, -85.74275)
@@ -44,7 +44,7 @@ light_color = Color(0.8175213, 0.8175213, 0.81752115, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1787918322]
 stream = ExtResource("16_2cqfq")
-volume_db = -5.0
+volume_db = -15.0
 autoplay = true
 parameters/looping = true
 
@@ -55,8 +55,7 @@ camera_rotation = Vector3(0, -90, 0)
 [node name="Airship" parent="." unique_id=395682466 groups=["Player"] instance=ExtResource("3_5vw27")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22.732784, 56.312283, -85.71045)
-thrust_change_speed = 6000.0
-max_thrust = 60000.0
+torque = 500.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)

@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+var reset_air_in_ballast: bool = false
+
 ## The mass of the airship itself.
 @export var initial_mass: float = 2000.0
 
@@ -14,6 +16,7 @@ func update_cargo_mass():
 const AIR_DENSITY: float = 1.190
 const AIRSHIP_DENSITY: float = 0.0899
 const g: float = 9.8
+var up_boost_to_balance: float
 
 @export_group("Cargo")
 @export var products: Array[Product] = []
@@ -37,17 +40,17 @@ signal air_changed(new_value: float)
 @export var air_ballast_pump_speed: float = 1000.0
 
 @export_group("Engine")
-@export var thrust_change_speed: float = 1500.0
-@export var max_thrust: float = 15000.0:
+@export var thrust_change_speed: float = 6000.0
+@export var max_thrust: float = 60000.0:
 	set(value):
 		max_thrust = value
 		max_thrust_changed.emit(max_thrust)
 		min_thrust_changed.emit(-max_thrust)
 signal max_thrust_changed(new_max_thrust: float)
 signal min_thrust_changed(new_min_thrust: float)
+
 @export var stabilization_force: float = 1000000.0
 @export var stabilization_damp: float = 5.0
-
 
 var thrust: float = 0:
 	set(value):
@@ -55,7 +58,7 @@ var thrust: float = 0:
 		thrust_changed.emit(thrust/mass)
 signal thrust_changed(new_thrust: float)
 
-@export var torque: float = 37500.0
+@export var torque: float = 500.0
 
 @export_group("Controls")
 ## Whether the player can control the airship.
@@ -88,17 +91,33 @@ func _ready() -> void:
 		if prod:
 			mass += prod.weight * prod.amount
 
-	air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
+	up_boost_to_balance = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
+	air_in_ballast = up_boost_to_balance
 
 func _process(delta: float) -> void:
 	if controls_enabled:
-		air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
+		if !reset_air_in_ballast:
+			air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
 
 		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
 	else:
 		thrust = 0
-		air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
-	
+		air_in_ballast = up_boost_to_balance
+
+	if reset_air_in_ballast:
+		if air_in_ballast > up_boost_to_balance:
+			air_in_ballast -= air_ballast_pump_speed * delta
+			if air_in_ballast <= up_boost_to_balance:
+				air_in_ballast = up_boost_to_balance
+				reset_air_in_ballast = false
+		elif air_in_ballast < up_boost_to_balance:
+			air_in_ballast += air_ballast_pump_speed * delta
+			if air_in_ballast >= up_boost_to_balance:
+				air_in_ballast = up_boost_to_balance
+				reset_air_in_ballast = false
+		else:
+			reset_air_in_ballast = false
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
 		state.apply_central_force(-basis.z * thrust)
@@ -118,3 +137,10 @@ func _physics_process(_delta: float) -> void:
 	if error_axis.length() > 0.001:
 		var torque: Vector3 = error_axis * stabilization_force - angular_velocity * stabilization_damp * mass
 		apply_torque(torque)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("remove_thrust"):
+		thrust = 0
+		
+	if event.is_action_released("remove_air_in_ballast"):
+		reset_air_in_ballast = true
