@@ -49,10 +49,21 @@ text = "ss"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AirMeter" type="ProgressBar" parent="VBoxContainer" unique_id=1517267221]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=18326334]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="AirMeter" type="ProgressBar" parent="VBoxContainer/HBoxContainer2" unique_id=1517267221]
 custom_minimum_size = Vector2(20, 300)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"AirMeter"
 fill_mode = 2
 show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer2" unique_id=1200355150]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/CenterContainer" unique_id=1336917897]
+layout_mode = 2
+text = "gorg"

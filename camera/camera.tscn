@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://djntvai6h802l" path="res://camera/camera.gd" id="1_lw1ob"]
 
 [node name="CameraRoot" type="Node3D" unique_id=196031430 node_paths=PackedStringArray("camera")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_lw1ob")
 camera = NodePath("Camera3D")
 

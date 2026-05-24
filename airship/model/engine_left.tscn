@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ctdguw35losla"]
+
+[ext_resource type="PackedScene" uid="uid://jhjwts7usha6" path="res://airship/model/engine_right.scn" id="1_rs4is"]
+
+[node name="EngineLeft" unique_id=658693508 instance=ExtResource("1_rs4is")]
+
+[node name="Beams" parent="." index="8" unique_id=334070493]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

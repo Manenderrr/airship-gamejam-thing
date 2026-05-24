@@ -1,14 +1,12 @@
 extends Node3D
 
-var rotation_x: float = 0.0
-var rotation_y: float = 0.0
-
 const HALF_PI = PI / 2
 
-@export_custom(PROPERTY_HINT_RANGE, "-360.0,360.0,1.0 suffix:°") var camera_rotation: Vector3 = Vector3.ZERO
+## The intended rotation of the camera root.
+@export_custom(PROPERTY_HINT_RANGE, "-360.0,360.0,0.1,suffix:°") var camera_rotation: Vector3 = Vector3.ZERO
 
 ## By how many radians will a single screen pixel worth of mouse movement rotate the camera root.
-@export_custom(PROPERTY_HINT_NONE, "suffix:rad/px") var sensivity: float = 0.01
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/px") var sensivity: float = 0.005
 ## The camera itself, mostly to change its distance relative to the root.
 @export var camera: Camera3D
 
@@ -45,15 +43,15 @@ func _ready():
 
 func update_rotation():
 	basis = Basis.IDENTITY
-	rotate_object_local(Vector3.UP, -rotation_x)
-	rotate_object_local(Vector3.LEFT, -rotation_y)
+	rotate_object_local(Vector3.UP, camera_rotation.x)
+	rotate_object_local(Vector3.LEFT, camera_rotation.y)
 
 func _input(event: InputEvent) -> void:
 	if _rotating:
 		if event is InputEventMouseMotion:
 			var mouse_delta = event.screen_relative * sensivity
-			rotation_x += mouse_delta.x
-			rotation_y = clampf(rotation_y - mouse_delta.y, -HALF_PI, HALF_PI)
+			camera_rotation.x -= mouse_delta.x
+			camera_rotation.y = clampf(camera_rotation.y + mouse_delta.y, -HALF_PI, HALF_PI)
 			
 			update_rotation()
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://cljo0h54ukqrs" path="res://main.gd" id="1_dg77c"]
-[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/airship.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://byu3pn3hjofpl" path="res://airship/airship.scn" id="3_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
 [ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship/airship_landing.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://ui/shipment_menu/shipment_menu.tscn" id="9_4c57u"]
@@ -22,11 +22,13 @@ script = ExtResource("1_dg77c")
 
 [node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
+camera_rotation = Vector3(0, -90, 0)
 
-[node name="Airship" parent="." unique_id=2080386789 instance=ExtResource("2_7mycd")]
-transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
+[node name="airship" parent="." unique_id=395682466 instance=ExtResource("3_5vw27")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -41)
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="airship" unique_id=814384683]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
 remote_path = NodePath("../../CameraRoot")
 update_rotation = false
 update_scale = false
@@ -53,17 +55,16 @@ shape = SubResource("BoxShape3D_lquwl")
 
 [node name="HUD" parent="." unique_id=113001571 instance=ExtResource("9_efxa6")]
 
-[node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("airship") instance=ExtResource("9_4c57u")]
-airship = NodePath("../Airship")
+[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
 
 [node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
-[connection signal="air_changed_fraction" from="Airship" to="HUD/VBoxContainer/AirMeter" method="set_as_ratio"]
-[connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
-[connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
+[connection signal="air_changed_fraction" from="airship" to="HUD/VBoxContainer/HBoxContainer2/AirMeter" method="set_as_ratio"]
+[connection signal="on_controls_disable" from="airship" to="CameraRoot" method="lock"]
+[connection signal="on_controls_enable" from="airship" to="CameraRoot" method="unlock"]
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="StaticBody3D/Area3D" method="_on_body_entered"]
-[connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
-[connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
+[connection signal="on_appear" from="ShipmentMenu" to="airship" method="disable_controls"]
+[connection signal="on_disappear" from="ShipmentMenu" to="airship" method="enable_controls"]
 
 [editable path="HUD"]
