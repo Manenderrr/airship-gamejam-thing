@@ -3,20 +3,20 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://owu2w61ngh5c"
-path="res://.godot/imported/main_menu_scene.fbx-709bdc9580538d33f8485d207575a10a.scn"
+uid="uid://bfwxkecxg1w6f"
+path="res://.godot/imported/station2.fbx-ea38d608d56e181acf69559b4981ef93.scn"
 
 [deps]
 
-source_file="res://ui/main_menu/main_menu_scene.fbx"
-dest_files=["res://.godot/imported/main_menu_scene.fbx-709bdc9580538d33f8485d207575a10a.scn"]
+source_file="res://gfx/station2.fbx"
+dest_files=["res://.godot/imported/station2.fbx-ea38d608d56e181acf69559b4981ef93.scn"]
 
 [params]
 
 nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/root_script=null
-nodes/apply_root_scale=false
+nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true

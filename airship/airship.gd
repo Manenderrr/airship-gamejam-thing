@@ -45,7 +45,7 @@ signal air_changed(new_value: float)
 		min_thrust_changed.emit(-max_thrust)
 signal max_thrust_changed(new_max_thrust: float)
 signal min_thrust_changed(new_min_thrust: float)
-@export var stabilization_force: float = 15000.0
+@export var stabilization_force: float = 1000000.0
 @export var stabilization_damp: float = 5.0
 
 

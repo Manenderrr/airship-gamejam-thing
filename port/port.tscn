@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://3ogx63m77hkd"]
 
-[ext_resource type="Script" uid="uid://c0ptx3tk3juyd" path="res://port.gd" id="1_yon1j"]
+[ext_resource type="Script" uid="uid://c0ptx3tk3juyd" path="res://port/port.gd" id="1_yon1j"]
 [ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://resources/product.gd" id="2_2se63"]
 [ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="3_l4uei"]
 [ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="4_5m4b3"]
