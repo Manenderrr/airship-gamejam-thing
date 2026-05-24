@@ -20,13 +20,15 @@ script = ExtResource("1_dg77c")
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -52)
 camera_rotation = Vector3(0, -90, 0)
 
-[node name="airship" parent="." unique_id=395682466 instance=ExtResource("3_5vw27")]
+[node name="airship" parent="." unique_id=395682466 groups=["Player"] instance=ExtResource("3_5vw27")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -52)
+center_of_mass_mode = 0
+center_of_mass = Vector3(0, 0, 0)
+linear_damp = 0.0
+angular_damp = 0.0
 acceleration = 1000000.0
 torque = 1000000.0
-acceleration_friction = 1.0
-torque_friction = 1.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="airship" unique_id=814384683]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
