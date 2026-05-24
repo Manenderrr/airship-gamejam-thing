@@ -216,48 +216,49 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6r0vg")
 
-[node name="Airship" type="RigidBody3D" unique_id=395682466 groups=["Player"]]
+[node name="Airship" type="RigidBody3D" unique_id=395682466 node_paths=PackedStringArray("envelope")]
 mass = 2000.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -10, 0)
 can_sleep = false
 script = ExtResource("1_lgy5q")
 products = Array[ExtResource("2_0fn8a")]([ExtResource("3_2atgx"), ExtResource("4_4i0iw"), ExtResource("5_fh81e")])
+envelope = NodePath("Envelope")
 acceleration = 100000.0
 torque = 100000.0
-acceleration_friction = 5.0
-torque_friction = 5.0
 
 [node name="EngineRightBack" parent="." unique_id=658693508 instance=ExtResource("2_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.485478, -1.8147424, 12.510925)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.485478, -3.7037425, 12.510925)
 
 [node name="EngineLeftBack" parent="." unique_id=135988063 instance=ExtResource("3_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7967148, -1.8147424, 12.510925)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7967148, -3.7037425, 12.510925)
 
 [node name="EngineRightMid" parent="." unique_id=1857269522 instance=ExtResource("2_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4854772, -1.8147424, 8.4958)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4854772, -3.7037425, 8.4958)
 
 [node name="EngineLeftMid" parent="." unique_id=164771516 instance=ExtResource("3_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.796715, -1.8147424, 8.47966)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.796715, -3.7037425, 8.47966)
 
 [node name="EngineRightFront" parent="." unique_id=1840434087 instance=ExtResource("2_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.485477, -1.8147424, 4.539094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.485477, -3.7037425, 4.539094)
 
 [node name="EngineLeftFront" parent="." unique_id=1931871431 instance=ExtResource("3_ytefm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7969503, -1.8147424, 4.539094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7969503, -3.7037425, 4.539094)
 
 [node name="Envelope" type="MeshInstance3D" parent="." unique_id=2080294963]
-transform = Transform3D(0, -1.9670125e-07, 4.5, -4.5, 0, 0, 0, -4.5, -1.9670125e-07, -3.934025e-07, 1.8892231, 0)
+transform = Transform3D(0, -1.9670125e-07, 4.5, -4.5, 0, 0, 0, -4.5, -1.9670125e-07, -3.934025e-07, 0.00022304058, 0)
 mesh = SubResource("ArrayMesh_7gng7")
 
 [node name="Gondola" type="MeshInstance3D" parent="." unique_id=1798774692]
-transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.3113417e-08, 0.034609046, -2.122528, -8.162014)
+transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.3113417e-08, 0.034609046, -4.011528, -8.162014)
 mesh = SubResource("ArrayMesh_1nsm8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=252472508 groups=["Player"]]
-transform = Transform3D(0.99999994, -3.5527137e-15, 0, 0, -4.371139e-08, -0.99999994, 3.5527137e-15, 0.99999994, -4.371139e-08, -3.934025e-07, 1.8892229, 3.0986176)
+transform = Transform3D(0.99999994, -3.5527137e-15, 0, 0, -4.371139e-08, -0.99999994, 3.5527137e-15, 0.99999994, -4.371139e-08, -3.934025e-07, 0.00022280216, 3.0986176)
 shape = SubResource("CapsuleShape3D_md13i")
 
 [node name="Stabilisers" type="Node3D" parent="." unique_id=1923510321]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.889, 9)
 
 [node name="Bottom" type="MeshInstance3D" parent="Stabilisers" unique_id=787045335]
 transform = Transform3D(-3.934025e-08, -1.101527e-07, -0.27, 0, -1.26, 2.360415e-08, -0.90000004, 4.8149274e-15, 1.1802075e-08, -0.023049768, -0.7840985, 12.341466)
