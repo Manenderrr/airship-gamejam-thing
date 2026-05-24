@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 @export var is_add_container: bool = false
-@export var item: Product
+var item: Product
 
 @onready var info: Label = %Info
 @onready var amount = %Amount
@@ -26,7 +26,8 @@ func _on_add_button_pressed() -> void:
 		airship.crate_size -= item.amount * item.size
 
 	elif !is_add_container:
-		item.amount += amount.value
+		item.amount -= amount.value
+		print(item.amount)
 		airship.remove_mass()
 		past_acts_info.text = "Removed: " + str(snapped(amount.value, 1)) + " " + item.name + ". Current weight: " + str(snapped(airship.mass, 0.01))
 		airship.crate_size += item.amount * item.size

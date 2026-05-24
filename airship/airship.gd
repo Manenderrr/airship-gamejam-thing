@@ -1,6 +1,7 @@
 extends RigidBody3D
 
 @export var weight: float = 2000.0
+var change_mass: float = 0
 const air_density: float = 1.190
 const airship_density: float = 0.0899
 const g: float = 9.8
@@ -73,18 +74,18 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 func add_mass():
 	for prod in products:
-		var new_mass: float
 		if prod:
 			if crate_size >= prod.size * prod.amount:
-				new_mass = prod.weight * prod.amount
-				air_in_ballast = mass / (air_density - airship_density)
-		mass += new_mass
+				change_mass += prod.weight * prod.amount
+	to_change_mass()
 
 func remove_mass():
 	for prod in products:
-		var new_mass: float
 		if prod:
-			if crate_size >= prod.size * prod.amount:
-				new_mass = prod.weight * prod.amount
-				air_in_ballast = mass / (air_density - airship_density)
-		mass -= new_mass
+			change_mass += prod.weight * prod.amount
+	to_change_mass()
+
+func to_change_mass():
+	mass = change_mass + weight
+	air_in_ballast = mass / (air_density - airship_density)
+	change_mass = 0
