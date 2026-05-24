@@ -226,7 +226,6 @@ angular_damp = 0.25
 script = ExtResource("1_lgy5q")
 products = Array[ExtResource("2_0fn8a")]([ExtResource("3_2atgx"), ExtResource("4_4i0iw"), ExtResource("5_fh81e")])
 envelope = NodePath("Envelope")
-acceleration = 10000.0
 torque = 50000.0
 
 [node name="EngineRightBack" parent="." unique_id=658693508 instance=ExtResource("2_ytefm")]
