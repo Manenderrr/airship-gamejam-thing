@@ -4,14 +4,20 @@ extends HBoxContainer
 var item: Product
 
 @onready var info: Label = %Info
+@onready var amount_info: Label = %AmountInfo
 @onready var amount = %Amount
 
 var airship: RigidBody3D
 var past_acts_info: Label
 
 func _ready() -> void:
-	if item:
+	if item and past_acts_info:
 		info.text = item.name + ": weight = " + str(item.weight) + ", size = " + str(item.size)
+		update_info()
+
+func update_info():
+	past_acts_info.text = "Current airship weight: " + str(snapped(airship.mass, 0.01)) + " Remaining crate space: " + str(airship.crate_size - item.amount * item.size)
+	amount_info.text = "Amount: " + str(item.amount)
 
 func _on_add_button_pressed() -> void:
 	if is_add_container:
@@ -22,12 +28,7 @@ func _on_add_button_pressed() -> void:
 			while airship.crate_size < item.amount * item.size:
 				item.amount -= 1
 			airship.add_mass()
-		past_acts_info.text = "Added: " + str(snapped(amount.value, 1)) + " " + item.name + ". Current weight: " + str(snapped(airship.mass, 0.01))
-		airship.crate_size -= item.amount * item.size
-
 	elif !is_add_container:
 		item.amount -= amount.value
-		print(item.amount)
 		airship.remove_mass()
-		past_acts_info.text = "Removed: " + str(snapped(amount.value, 1)) + " " + item.name + ". Current weight: " + str(snapped(airship.mass, 0.01))
-		airship.crate_size += item.amount * item.size
+	update_info()
