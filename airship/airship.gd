@@ -31,7 +31,9 @@ signal air_capacity_changed(new_capacity: float)
 var air_in_ballast: float:
 	set(value):
 		air_in_ballast = clampf(value, 0, air_capacity)
-		air_changed.emit((g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY) - g * mass) / mass)
+		air_changed.emit(air_in_ballast)
+		vertical_speed_changed.emit((g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY) - g * mass) / mass)
+signal vertical_speed_changed(new_value: float)
 signal air_changed(new_value: float)
 
 @export var air_ballast_pump_speed: float = 1000.0
@@ -77,7 +79,7 @@ signal on_controls_change(new_state: bool)
 
 func _ready() -> void:
 	# Trigger "changed" signals to initialise things that depend on them
-	air_changed.emit(air_in_ballast)
+	vertical_speed_changed.emit(air_in_ballast)
 	air_capacity_changed.emit(air_capacity)
 	thrust_changed.emit(thrust)
 	max_thrust_changed.emit(max_thrust)

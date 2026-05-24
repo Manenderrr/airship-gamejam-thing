@@ -1,3 +1,4 @@
+class_name HUD
 extends Control
 
 @export var y_vector_info: Label
@@ -6,10 +7,6 @@ extends Control
 func _ready() -> void:
 	y_vector_info = %YVectorInfo
 	x_vector_info = %XVectorInfo
-
-func _process(delta: float) -> void:
-	pass
-
 
 func _on_airship_air_changed(new_value: float) -> void:
 	if y_vector_info:
