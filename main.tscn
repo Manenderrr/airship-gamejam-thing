@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://b2rfxq0u71esh" path="res://soundtrack.mp3" id="16_2cqfq"]
-[ext_resource type="Script" uid="uid://pqdkg45bmxvu" path="res://death_zone.gd" id="17_yaehf"]
+[ext_resource type="Script" path="res://death_zone.gd" id="17_yaehf"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yaehf"]
 

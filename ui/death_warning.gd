@@ -11,33 +11,34 @@ extends Control
 var time: float
 @export var duration: float = 5.0
 
+var counting: bool = false
+
 signal on_timeout
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(message, "message is not set")
 	assert(timer, "timer is not set")
 	assert(bar, "bar is not set")
-
-	#set_process(false)
 func _process(delta: float) -> void:
+	if not counting: return
+
 	if time <= 0:
 		on_timeout.emit()
 		stop()
 
-	timer.text = str(round).pad_decimals(10)
+	timer.text = str(time).pad_decimals(1)
 	bar.value = time
 
 	time -= delta
 
 func stop() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
-	set_process(false)
+	counting = false
 	hide()
 func initiate() -> void:
 	time = duration
 	bar.max_value = time
-	set_process(true)
+	counting = true
 	show()
 func initiate_too_low() -> void:
 	initiate()

@@ -9,7 +9,14 @@
 ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_rbyyf")
 
+<<<<<<< HEAD
 [node name="HUD" type="Control" unique_id=1571720740]
+=======
+[sub_resource type="Theme" id="Theme_546lt"]
+default_font_size = 32
+
+[node name="HUD" type="Control" unique_id=1571720740 node_paths=PackedStringArray("y_vector_info", "x_vector_info", "death_warning", "death_screen")]
+>>>>>>> 2d6e975da1d547848b5e866ff06598256821b72e
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +26,13 @@ grow_vertical = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_276te")
 script = ExtResource("1_ahhtf")
+<<<<<<< HEAD
+=======
+y_vector_info = NodePath("MarginContainer/HBoxContainer1/VBoxContainer/VBoxContainer/YVectorInfoBG/MarginContainer/HBoxContainer/YVectorInfo")
+x_vector_info = NodePath("MarginContainer/HBoxContainer1/VBoxContainer/VBoxContainer/XVectorInfoBG/MarginContainer/HBoxContainer/XVectorInfo")
+death_warning = NodePath("DeathWarning")
+death_screen = NodePath("DeathScreen")
+>>>>>>> 2d6e975da1d547848b5e866ff06598256821b72e
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=183031769]
 layout_mode = 0
@@ -104,6 +118,7 @@ size_flags_horizontal = 3
 vertical_alignment = 1
 
 [node name="DeathWarning" type="VBoxContainer" parent="." unique_id=739909842 node_paths=PackedStringArray("message", "timer", "bar")]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -138,3 +153,38 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 show_percentage = false
+
+[node name="DeathScreen" type="VBoxContainer" parent="." unique_id=894912038]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_546lt")
+
+[node name="Label" type="Label" parent="DeathScreen" unique_id=566553991]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Вы умерли :("
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="DeathScreen" unique_id=698801757]
+layout_mode = 2
+text = "Начать заново"
+
+[node name="MainMenu" type="Button" parent="DeathScreen" unique_id=1332030646]
+layout_mode = 2
+text = "В главное меню"
+
+[node name="Quit" type="Button" parent="DeathScreen" unique_id=1130424327]
+layout_mode = 2
+text = "Выйти из игры"
+
+[connection signal="pressed" from="DeathScreen/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="DeathScreen/MainMenu" to="." method="show_main_menu"]
+[connection signal="pressed" from="DeathScreen/Quit" to="." method="quit_game"]
