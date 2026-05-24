@@ -26,8 +26,8 @@ signal air_changed_fraction(new_fraction: float)
 @export_group("Engine")
 @export var acceleration: float = 15000.0
 @export var torque: float = 37500.0
-@export var acceleration_friction: float = 10.0
-@export var torque_friction: float = 10.0
+@export var acceleration_friction: float = 1.0
+@export var torque_friction: float = 1.0
 
 @export_group("Controls")
 ## Whether the player can control the airship.
@@ -65,11 +65,10 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("landing"):
 			air_in_ballast += air_ballast_pump_speed * delta
 
-
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
 		var thrust_axis = Input.get_axis("airship_back", "airship_forward")
-		state.apply_central_force(basis.x * thrust_axis * acceleration)
+		state.apply_central_force(-basis.z * thrust_axis * acceleration)
 
 		var torque_axis = Input.get_axis("airship_left", "airship_right")
 		state.apply_torque(Vector3(0, torque_axis * torque, 0))

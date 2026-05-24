@@ -15,17 +15,21 @@ size = Vector3(10, 1, 10)
 size = Vector3(10, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
-size = Vector3(9, 8, 9)
+size = Vector3(9, 12.321655, 9)
 
 [node name="Node" type="Node" unique_id=1065634655]
 script = ExtResource("1_dg77c")
 
 [node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
-transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -52)
 camera_rotation = Vector3(0, -90, 0)
 
 [node name="airship" parent="." unique_id=395682466 instance=ExtResource("3_5vw27")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -41)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -52)
+acceleration = 25000.0
+torque = 25000.0
+acceleration_friction = 1.0
+torque_friction = 1.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="airship" unique_id=814384683]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
@@ -50,12 +54,13 @@ shape = SubResource("BoxShape3D_0xm2m")
 script = ExtResource("4_1bvp3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Area3D" unique_id=558678208]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6608276, 0)
 shape = SubResource("BoxShape3D_lquwl")
 
 [node name="HUD" parent="." unique_id=113001571 instance=ExtResource("9_efxa6")]
 
-[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
+[node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("airship") instance=ExtResource("9_4c57u")]
+airship = NodePath("../airship")
 
 [node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]
 

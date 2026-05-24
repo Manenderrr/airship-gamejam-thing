@@ -6,6 +6,7 @@ func pause() -> void:
 	show()
 
 func unpause() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().paused = false
 	hide()
 
