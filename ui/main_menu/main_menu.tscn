@@ -79,15 +79,7 @@ layout_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.7823799, 0.6228014, 0, -0.6228014, 0.7823799, 57.90045, 42.436783, 167.69617)
 light_angular_distance = 0.5
 
-[node name="main_menu_scene" parent="Node3D" unique_id=1105258777 instance=ExtResource("2_mu8pm")]
-
-[node name="Куб_931" parent="Node3D/main_menu_scene" index="9" unique_id=1058897067]
-transform = Transform3D(2.2649372e-06, -30.000002, -1.3113417e-06, 0, -1.3113417e-06, 30.000002, -30.000002, -2.2649372e-06, -9.900355e-14, -41.720158, -33.204823, -82.84854)
-
-[node name="Куб_932" parent="Node3D/main_menu_scene" index="10" unique_id=1674123092]
-transform = Transform3D(111.88675, 12.868223, -1.6941417, 1.6941304, -7.4294834, -113.84295, 25.736443, -55.454327, 14.858961, -208.9705, -32.383255, 102.86603)
+[node name="main_menu_scene" parent="Node3D" unique_id=263510069 instance=ExtResource("2_mu8pm")]
 
 [connection signal="pressed" from="Buttons/Play" to="." method="play"]
 [connection signal="pressed" from="Buttons/Quit" to="." method="quit_game"]
-
-[editable path="Node3D/main_menu_scene"]

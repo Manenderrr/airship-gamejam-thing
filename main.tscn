@@ -23,12 +23,6 @@ camera_rotation = Vector3(0, -90, 0)
 [node name="Airship" parent="." unique_id=395682466 groups=["Player"] instance=ExtResource("3_5vw27")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -52)
-center_of_mass_mode = 0
-center_of_mass = Vector3(0, 0, 0)
-linear_damp = 0.0
-angular_damp = 0.0
-acceleration = 1000000.0
-torque = 1000000.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
@@ -42,7 +36,7 @@ rotation_edit_mode = 1
 
 [node name="HUD" parent="." unique_id=113001571 instance=ExtResource("9_efxa6")]
 
-[node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("Airship") instance=ExtResource("9_4c57u")]
+[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
 airship = NodePath("../Airship")
 
 [node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]

@@ -22,7 +22,6 @@ var crate_size: float = 100:
 		crate_size = max(0, value)
 
 @export_group("Ballast")
-@export var envelope: Node3D
 @export var air_capacity: float = 50000.0:
 	set(value):
 		air_capacity = value
@@ -74,8 +73,6 @@ signal on_controls_disable
 signal on_controls_change(new_state: bool)
 
 func _ready() -> void:
-	assert(envelope, "envelope is not set")
-
 	# Trigger "changed" signals to initialise things that depend on them
 	air_changed.emit(air_in_ballast)
 	air_capacity_changed.emit(air_capacity)
@@ -109,5 +106,4 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var roll_axis: = Input.get_axis("airship_roll_right", "airship_roll_left")
 		state.apply_torque(basis.z * roll_axis * torque)
 
-	#airship takeoff and landing
-	state.apply_force(Vector3.UP * g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY), envelope.global_position - global_position)
+	state.apply_force(Vector3.UP * g * air_in_ballast * (AIR_DENSITY - AIRSHIP_DENSITY))
