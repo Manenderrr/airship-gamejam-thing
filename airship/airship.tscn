@@ -221,11 +221,13 @@ mass = 2000.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -10, 0)
 can_sleep = false
+linear_damp = 0.25
+angular_damp = 0.25
 script = ExtResource("1_lgy5q")
 products = Array[ExtResource("2_0fn8a")]([ExtResource("3_2atgx"), ExtResource("4_4i0iw"), ExtResource("5_fh81e")])
 envelope = NodePath("Envelope")
-acceleration = 100000.0
-torque = 100000.0
+acceleration = 10000.0
+torque = 50000.0
 
 [node name="EngineRightBack" parent="." unique_id=658693508 instance=ExtResource("2_ytefm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.485478, -3.7037425, 12.510925)
