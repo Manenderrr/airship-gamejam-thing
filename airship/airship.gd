@@ -6,6 +6,8 @@ const air_density: float = 1.190
 const airship_density: float = 0.0899
 const g: float = 9.8
 
+var mission_number: int = -1
+
 @export_group("Cargo")
 @export var products: Array[Product] = []
 var crate_size: float = 100:
