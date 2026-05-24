@@ -5,7 +5,7 @@ var rotation_y: float = 0.0
 
 const HALF_PI = PI / 2
 
-@export_custom(PROPERTY_HINT_RANGE, "-360.0,360.0,1.0; suffix:°") var camera_rotation: Vector3 = Vector3.ZERO
+@export_custom(PROPERTY_HINT_RANGE, "-360.0,360.0,1.0 suffix:°") var camera_rotation: Vector3 = Vector3.ZERO
 
 ## By how many radians will a single screen pixel worth of mouse movement rotate the camera root.
 @export_custom(PROPERTY_HINT_NONE, "suffix:rad/px") var sensivity: float = 0.01

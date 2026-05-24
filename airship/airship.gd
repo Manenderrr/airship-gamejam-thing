@@ -37,6 +37,11 @@ signal air_changed_fraction(new_fraction: float)
 		if value: on_controls_enable.emit()
 		else: on_controls_disable.emit()
 
+func enable_controls():
+	controls_enabled = true
+func disable_controls():
+	controls_enabled = false
+
 signal on_controls_enable
 signal on_controls_disable
 signal on_controls_change(new_state: bool)
