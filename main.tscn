@@ -1,21 +1,12 @@
 [gd_scene format=3 uid="uid://cqow47bch5ocs"]
 
-[ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://scripts/airship.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://cljo0h54ukqrs" path="res://main.gd" id="1_dg77c"]
-[ext_resource type="Script" uid="uid://djntvai6h802l" path="res://scripts/orbit_camera.gd" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://scripts/product.gd" id="2_5vw27"]
-[ext_resource type="PackedScene" uid="uid://beved6boexd4" path="res://gfx/AirShip_Original.fbx" id="2_h2yge"]
-[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://Resources/iron.tres" id="3_kek77"]
-[ext_resource type="Script" uid="uid://cdmnois872y32" path="res://scripts/airship_landing.gd" id="4_1bvp3"]
-[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://Resources/wood.tres" id="4_4c57u"]
-[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://Resources/wheat.tres" id="5_efxa6"]
-[ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://scenes/shipment_menu.tscn" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/airship.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
+[ext_resource type="Script" uid="uid://cdmnois872y32" path="res://airship/airship_landing.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://ui/shipment_menu/shipment_menu.tscn" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://eo30kruldshw" path="res://ui/hud.tscn" id="9_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dqasr5tbnenrr" path="res://ui/pause.tscn" id="12_dg77c"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
-radius = 5.0
-height = 49.842903
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 size = Vector3(10, 1, 10)
@@ -29,31 +20,16 @@ size = Vector3(9, 8, 9)
 [node name="Node" type="Node" unique_id=1065634655]
 script = ExtResource("1_dg77c")
 
-[node name="Airship" type="RigidBody3D" parent="." unique_id=738342851 groups=["Player"]]
+[node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
-mass = 2000.0
-can_sleep = false
-constant_force = Vector3(0, 9.8, 0)
-script = ExtResource("1_0xm2m")
-products = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("5_efxa6"), ExtResource("4_4c57u")])
-acceleration_friction = 1.0
-torque_friction = 1.0
 
-[node name="Model" parent="Airship" unique_id=1788363306 groups=["Player"] instance=ExtResource("2_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+[node name="Airship" parent="." unique_id=2080386789 instance=ExtResource("2_7mycd")]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -41)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Airship" unique_id=702138280 groups=["Player"]]
-transform = Transform3D(-4.3710084e-08, -1, 0, 0.9999702, -4.371139e-08, 0, 0, 0, 0.9999702, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_ig7tw")
-
-[node name="CameraRoot" type="Node3D" parent="Airship" unique_id=1912481264 node_paths=PackedStringArray("camera")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-script = ExtResource("1_h2yge")
-camera = NodePath("Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="Airship/CameraRoot" unique_id=1372917612]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 40)
-size = 24.203
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
+remote_path = NodePath("../../CameraRoot")
+update_rotation = false
+update_scale = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401420976]
 transform = Transform3D(0.9989103, -0.04508392, -0.012065864, 0, -0.25853243, 0.9660026, -0.0466706, -0.96494997, -0.2582507, 0, 0, 0)
@@ -77,14 +53,16 @@ shape = SubResource("BoxShape3D_lquwl")
 
 [node name="HUD" parent="." unique_id=113001571 instance=ExtResource("9_efxa6")]
 
-[node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("airship") instance=ExtResource("9_4c57u")]
-airship = NodePath("../Airship")
+[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
 
 [node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
 [connection signal="air_changed_fraction" from="Airship" to="HUD/VBoxContainer/AirMeter" method="set_as_ratio"]
+[connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
+[connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="StaticBody3D/Area3D" method="_on_body_entered"]
+[connection signal="on_appear" from="ShipmentMenu" to="CameraRoot" method="lock"]
+[connection signal="on_disappear" from="ShipmentMenu" to="CameraRoot" method="unlock"]
 
-[editable path="Airship/Model"]
 [editable path="HUD"]

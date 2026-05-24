@@ -1,17 +1,18 @@
 extends Control
 
-var in_shipment_menu: bool = false
+signal on_appear
+signal on_disappear
 
 @export var products: Array[Product] = []
 @export var airship: RigidBody3D
 
 @onready var past_acts_info: Label = %PastActsInfo
 
-@onready var parent_of_add_containers: VBoxContainer = %"AddContainers(VBox)"
-var add_container_scene = preload("res://scenes/add_container.tscn")
+@onready var parent_of_add_containers: Node = %"AddContainers(VBox)"
+@export var add_container_scene: PackedScene
 
-@onready var parent_of_remove_containers: VBoxContainer = %"RemoveContainers(VBox)"
-var remove_container_scene = preload("res://scenes/remove_container.tscn")
+@onready var parent_of_remove_containers: Node = %"RemoveContainers(VBox)"
+@export var remove_container_scene: PackedScene
 
 
 func _ready() -> void:
@@ -25,12 +26,12 @@ func _on_button_pressed() -> void:
 func shipment_menu_appear() -> void:
 	visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	in_shipment_menu = true
+	on_appear.emit()
 
 func shipment_menu_disappear() -> void:
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	in_shipment_menu = false
+	on_disappear.emit()
 
 func add_add_containers():
 	for prod in products:

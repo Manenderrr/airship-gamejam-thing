@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cmf8hwfou7l4r"]
+
+[ext_resource type="Script" uid="uid://djntvai6h802l" path="res://camera/camera.gd" id="1_lw1ob"]
+
+[node name="CameraRoot" type="Node3D" unique_id=196031430 node_paths=PackedStringArray("camera")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_lw1ob")
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1411326435]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 40)
+size = 24.203

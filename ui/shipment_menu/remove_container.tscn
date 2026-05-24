@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dhmdnoslyjri"]
 
-[ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://scripts/act_with_items.gd" id="1_qrsvh"]
+[ext_resource type="Script" uid="uid://c7fsuhbivn13p" path="res://ui/shipment_menu/act_with_items.gd" id="1_qrsvh"]
 
 [node name="ActAddContainer(HBox)" type="HBoxContainer" unique_id=1005234056]
 script = ExtResource("1_qrsvh")

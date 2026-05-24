@@ -5,9 +5,6 @@ const air_density: float = 1.190
 const airship_density: float = 0.0899
 const g: float = 9.8
 
-@export_group("UI")
-@onready var shipment_menu: = %ShipmentMenu
-
 @export_group("Cargo")
 @export var products: Array[Product] = []
 var crate_size: float = 100:
@@ -31,6 +28,19 @@ signal air_changed_fraction(new_fraction: float)
 @export var acceleration_friction: float = 10.0
 @export var torque_friction: float = 10.0
 
+@export_group("Controls")
+## Whether the player can control the airship.
+@export var controls_enabled: bool = true:
+	set(value):
+		controls_enabled = value
+		on_controls_change.emit(value)
+		if value: on_controls_enable.emit()
+		else: on_controls_disable.emit()
+
+signal on_controls_enable
+signal on_controls_disable
+signal on_controls_change(new_state: bool)
+
 func _ready() -> void:
 	linear_damp = acceleration_friction
 	angular_damp = torque_friction
@@ -43,7 +53,7 @@ func _ready() -> void:
 	air_in_ballast = mass / (air_density - airship_density)
 
 func _process(delta: float) -> void:
-	if shipment_menu.in_shipment_menu == false:
+	if controls_enabled:
 		if Input.is_action_pressed("takeoff"):
 			air_in_ballast -= air_ballast_pump_speed * delta
 		if Input.is_action_pressed("landing"):
@@ -51,7 +61,7 @@ func _process(delta: float) -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if shipment_menu.in_shipment_menu == false:
+	if controls_enabled:
 		var thrust_axis = Input.get_axis("airship_back", "airship_forward")
 		state.apply_central_force(basis.x * thrust_axis * acceleration)
 
@@ -59,7 +69,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.apply_torque(Vector3(0, torque_axis * torque, 0))
 
 	#airship takeoff and landing
-	state.apply_central_force(basis.y * g * air_in_ballast * (air_density - airship_density))
+	state.apply_central_force(Vector3.UP * g * air_in_ballast * (air_density - airship_density))
 
 func add_mass():
 	for prod in products:

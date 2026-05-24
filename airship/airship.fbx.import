@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://beved6boexd4"
-path="res://.godot/imported/AirShip_Original.fbx-8380a0f9b1807347b683940c2cac7627.scn"
+uid="uid://dscrnbtajwohj"
+path="res://.godot/imported/airship.fbx-2798c134d7dfb7e0418b49041eaf5e10.scn"
 
 [deps]
 
-source_file="res://gfx/AirShip_Original.fbx"
-dest_files=["res://.godot/imported/AirShip_Original.fbx-8380a0f9b1807347b683940c2cac7627.scn"]
+source_file="res://airship/airship.fbx"
+dest_files=["res://.godot/imported/airship.fbx-2798c134d7dfb7e0418b49041eaf5e10.scn"]
 
 [params]
 

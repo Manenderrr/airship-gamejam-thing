@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://uaowrmxk506v"]
+
+[ext_resource type="Script" uid="uid://we8ypjg2lq2q" path="res://airship/airship.gd" id="1_0fn8a"]
+[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://resources/product.gd" id="2_2atgx"]
+[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="3_4i0iw"]
+[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="4_fh81e"]
+[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="5_eq4rj"]
+[ext_resource type="PackedScene" uid="uid://dscrnbtajwohj" path="res://airship/airship.fbx" id="6_wxkwo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
+radius = 5.0
+height = 49.842903
+
+[node name="Airship" type="RigidBody3D" unique_id=2080386789 groups=["Player"]]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
+mass = 2000.0
+can_sleep = false
+constant_force = Vector3(0, 9.8, 0)
+script = ExtResource("1_0fn8a")
+products = Array[ExtResource("2_2atgx")]([ExtResource("3_4i0iw"), ExtResource("4_fh81e"), ExtResource("5_eq4rj")])
+acceleration_friction = 1.0
+torque_friction = 1.0
+
+[node name="Model" parent="." unique_id=1991607771 groups=["Player"] instance=ExtResource("6_wxkwo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1581715145 groups=["Player"]]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ig7tw")
