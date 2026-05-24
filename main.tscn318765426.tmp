@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://cqow47bch5ocs"]
+
+[ext_resource type="Script" uid="uid://cljo0h54ukqrs" path="res://main.gd" id="1_dg77c"]
+[ext_resource type="PackedScene" uid="uid://uaowrmxk506v" path="res://airship/Airship.tscn" id="3_5vw27"]
+[ext_resource type="PackedScene" uid="uid://cmf8hwfou7l4r" path="res://camera/camera.tscn" id="3_272bh"]
+[ext_resource type="Script" uid="uid://sginqaxrkga4" path="res://add_mission.gd" id="7_5vw27"]
+[ext_resource type="PackedScene" uid="uid://3ogx63m77hkd" path="res://port/port.tscn" id="7_272bh"]
+[ext_resource type="Script" uid="uid://7ybvv677kthm" path="res://resources/product.gd" id="8_dg77c"]
+[ext_resource type="PackedScene" uid="uid://cmso0s4aandw8" path="res://ui/shipment_menu/shipment_menu.tscn" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://eo30kruldshw" path="res://ui/hud.tscn" id="9_efxa6"]
+[ext_resource type="Resource" uid="uid://hpjaq37uy7iy" path="res://resources/iron.tres" id="9_ycdy4"]
+[ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="10_w48qg"]
+[ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="11_vivmo"]
+[ext_resource type="PackedScene" uid="uid://dqasr5tbnenrr" path="res://ui/pause.tscn" id="12_dg77c"]
+[ext_resource type="PackedScene" uid="uid://liw02mp0lpl4" path="res://gfx/station1.fbx" id="13_vivmo"]
+[ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://b2rfxq0u71esh" path="res://soundtrack.mp3" id="16_2cqfq"]
+[ext_resource type="Script" path="res://death_zone.gd" id="17_yaehf"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yaehf"]
+
+[node name="Node" type="Node" unique_id=1065634655]
+script = ExtResource("1_dg77c")
+
+[node name="Ports" type="Node3D" parent="." unique_id=1213237564 node_paths=PackedStringArray("ports")]
+unique_name_in_owner = true
+script = ExtResource("7_5vw27")
+products = Array[ExtResource("8_dg77c")]([ExtResource("10_w48qg"), ExtResource("11_vivmo"), ExtResource("9_ycdy4")])
+ports = [NodePath("Port"), NodePath("Port2"), NodePath("Port3")]
+
+[node name="Port" parent="Ports" unique_id=1332543940 instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.04897, 3.3751822, -85.74275)
+
+[node name="Port2" parent="Ports" unique_id=1482940595 instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.45116, 3.5065517, 1674.6974)
+
+[node name="Port3" parent="Ports" unique_id=73084228 instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1327.218, 3.5338821, 990.25305)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401420976]
+transform = Transform3D(0.7427524, 0.61091036, 0.27405733, -0.0070892237, -0.4021076, 0.91556495, 0.6695288, -0.68198097, -0.2943354, 0, 0, 0)
+rotation_edit_mode = 1
+light_color = Color(0.8175213, 0.8175213, 0.81752115, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1787918322]
+stream = ExtResource("16_2cqfq")
+volume_db = -15.0
+autoplay = true
+parameters/looping = true
+
+[node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 22.732784, 56.312283, -85.71045)
+camera_rotation = Vector3(0, -90, 0)
+
+[node name="Airship" parent="." unique_id=395682466 groups=["Player"] instance=ExtResource("3_5vw27")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 22.732784, 56.312283, -85.71045)
+linear_damp = 1.0
+angular_damp = 1.0
+torque = 250.0
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Airship" unique_id=814384683]
+transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, 0)
+remote_path = NodePath("../../CameraRoot")
+update_rotation = false
+update_scale = false
+
+[node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 1
+
+[node name="MarginContainer" parent="HUD" index="0" unique_id=183031769]
+size_flags_vertical = 3
+
+[node name="ShipmentMenu" parent="." unique_id=1322058284 instance=ExtResource("9_4c57u")]
+airship = NodePath("../Airship")
+
+[node name="Pause" parent="." unique_id=654107687 instance=ExtResource("12_dg77c")]
+
+[node name="station1" parent="." unique_id=270839148 instance=ExtResource("13_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.187733, 0, -53.404194)
+
+[node name="station2" parent="." unique_id=786881683 instance=ExtResource("13_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.33374, 0, 1757.3436)
+
+[node name="station3" parent="." unique_id=1154857980 instance=ExtResource("15_2cqfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1335.4254, 0, 992.26416)
+
+[node name="BottomDeathZone" type="Area3D" parent="." unique_id=1913327954 node_paths=PackedStringArray("ui")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -320.07156, -94.150986, 0)
+script = ExtResource("17_yaehf")
+ui = NodePath("../HUD/DeathWarning")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BottomDeathZone" unique_id=250518459]
+shape = SubResource("WorldBoundaryShape3D_yaehf")
+
+[connection signal="on_pause" from="." to="Pause" method="pause"]
+[connection signal="horizontal_speed_changed" from="Airship" to="HUD" method="_on_airship_horizontal_speed_changed"]
+[connection signal="on_controls_disable" from="Airship" to="CameraRoot" method="lock"]
+[connection signal="on_controls_enable" from="Airship" to="CameraRoot" method="unlock"]
+[connection signal="vertical_speed_changed" from="Airship" to="HUD" method="_on_airship_air_changed"]
+[connection signal="on_appear" from="ShipmentMenu" to="Airship" method="disable_controls"]
+[connection signal="on_disappear" from="ShipmentMenu" to="Airship" method="enable_controls"]
+
+[editable path="HUD"]

@@ -119,7 +119,6 @@ func _process(delta: float) -> void:
 		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
 	elif alive:
 		thrust = 0
-<<<<<<< HEAD
 		air_in_ballast = up_boost_to_balance
 
 	if reset_air_in_ballast:
@@ -136,7 +135,6 @@ func _process(delta: float) -> void:
 		else:
 			reset_air_in_ballast = false
 
-=======
 		air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
 	else:
 		thrust = 0
@@ -148,7 +146,6 @@ func _process(delta: float) -> void:
 		elif position.y < min_y: hud.death_warning.initiate_too_low()
 	elif position.y > min_y and position.y < max_y: hud.death_warning.stop()
 	
->>>>>>> 2d6e975da1d547848b5e866ff06598256821b72e
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
 		state.apply_central_force(-basis.z * thrust)
