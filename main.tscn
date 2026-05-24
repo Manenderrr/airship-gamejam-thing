@@ -12,6 +12,9 @@
 [ext_resource type="Resource" uid="uid://hw7n37623jgh" path="res://resources/wheat.tres" id="10_w48qg"]
 [ext_resource type="Resource" uid="uid://dfbg2fjrts5ry" path="res://resources/wood.tres" id="11_vivmo"]
 [ext_resource type="PackedScene" uid="uid://dqasr5tbnenrr" path="res://ui/pause.tscn" id="12_dg77c"]
+[ext_resource type="PackedScene" uid="uid://liw02mp0lpl4" path="res://gfx/station1.fbx" id="13_vivmo"]
+[ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
 
 [node name="Node" type="Node" unique_id=1065634655]
 script = ExtResource("1_dg77c")
@@ -57,6 +60,15 @@ port_number = 1
 [node name="Port3" parent="Ports" unique_id=1381079106 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.458355, -5.4886265, -83.39044)
 port_number = 2
+
+[node name="station1" parent="." unique_id=270839148 instance=ExtResource("13_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.187733, 0, -53.404194)
+
+[node name="station2" parent="." unique_id=786881683 instance=ExtResource("13_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.33374, 0, 1757.3436)
+
+[node name="station3" parent="." unique_id=1154857980 instance=ExtResource("15_2cqfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1335.4254, 0, 992.26416)
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
 [connection signal="air_capacity_changed" from="Airship" to="HUD/HBoxContainer/AirMeter" method="set_max"]
