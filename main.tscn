@@ -15,9 +15,18 @@
 [ext_resource type="PackedScene" uid="uid://liw02mp0lpl4" path="res://gfx/station1.fbx" id="13_vivmo"]
 [ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://b2rfxq0u71esh" path="res://soundtrack.mp3" id="16_2cqfq"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yaehf"]
 
 [node name="Node" type="Node" unique_id=1065634655]
 script = ExtResource("1_dg77c")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1787918322]
+stream = ExtResource("16_2cqfq")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true
 
 [node name="CameraRoot" parent="." unique_id=196031430 instance=ExtResource("3_272bh")]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.9999999, 0, -4.3711385e-08, 0, 0, -52)
@@ -48,18 +57,21 @@ airship = NodePath("../Airship")
 unique_name_in_owner = true
 script = ExtResource("7_5vw27")
 products = Array[ExtResource("8_dg77c")]([ExtResource("10_w48qg"), ExtResource("11_vivmo"), ExtResource("9_ycdy4")])
-ports = [NodePath("Port"), NodePath("Port2"), NodePath("Port3")]
+ports = [null, null, null]
 
 [node name="Port" parent="Ports" unique_id=1332543940 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.952761, -6.9933567, -15.377541)
+products = Array[ExtResource("8_dg77c")]([])
 
 [node name="Port2" parent="Ports" unique_id=703603571 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.402458, -11.004257, -39.392998)
 port_number = 1
+products = Array[ExtResource("8_dg77c")]([])
 
 [node name="Port3" parent="Ports" unique_id=1381079106 instance=ExtResource("7_272bh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.458355, -5.4886265, -83.39044)
 port_number = 2
+products = Array[ExtResource("8_dg77c")]([])
 
 [node name="station1" parent="." unique_id=270839148 instance=ExtResource("13_vivmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.187733, 0, -53.404194)
@@ -69,6 +81,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.33374, 0, 1757.3436)
 
 [node name="station3" parent="." unique_id=1154857980 instance=ExtResource("15_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1335.4254, 0, 992.26416)
+
+[node name="BottomDeathZone" type="Area3D" parent="." unique_id=1913327954]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BottomDeathZone" unique_id=250518459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -114.27243, -187.94531)
+shape = SubResource("WorldBoundaryShape3D_yaehf")
 
 [connection signal="on_pause" from="." to="Pause" method="pause"]
 [connection signal="air_capacity_changed" from="Airship" to="HUD/HBoxContainer/AirMeter" method="set_max"]
