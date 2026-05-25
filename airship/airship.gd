@@ -87,9 +87,9 @@ signal on_controls_change(new_state: bool)
 @export_group("Death")
 var alive: bool = true
 ## If Y is above this value, the death timeout starts.
-@export var max_y: float = 150.0
+@export var max_y: float = 230.0
 ## If Y is below this value, the death timeout starts.
-@export var min_y: float = -160.0
+@export var min_y: float = -230.0
 func die():
 	alive = false
 	disable_controls()

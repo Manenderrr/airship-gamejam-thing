@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://bfwxkecxg1w6f" path="res://gfx/station2.fbx" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://0g2gfun3x4xa" path="res://gfx/station3.fbx" id="15_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://b2rfxq0u71esh" path="res://soundtrack.mp3" id="16_2cqfq"]
-[ext_resource type="Script" path="res://death_zone.gd" id="17_yaehf"]
 [ext_resource type="Texture2D" uid="uid://b35pr5ch6oagy" path="res://guide.jpg" id="18_074og"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cegan"]
@@ -70,6 +69,18 @@ transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 0.9999998, 0, 0.999999
 remote_path = NodePath("../../CameraRoot")
 update_rotation = false
 update_scale = false
+
+[node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
+size_flags_horizontal = 1
+
+[node name="EnginInfo" parent="HUD" index="0" unique_id=183031769]
+size_flags_vertical = 3
+
+[node name="DeathWarning" parent="HUD" index="1" unique_id=739909842]
+visible = false
+
+[node name="MissionInfo" parent="HUD" index="2" unique_id=2119248557]
+offset_left = -208.0
 
 [node name="Guide" type="Control" parent="." unique_id=134154486]
 visible = false
@@ -157,18 +168,6 @@ text = "CTRL = Reset X Speed
 ALT = Reset Y Speed (need some time)"
 vertical_alignment = 1
 
-[node name="HUD" parent="." unique_id=1571720740 instance=ExtResource("9_efxa6")]
-size_flags_horizontal = 1
-
-[node name="EnginInfo" parent="HUD" index="0" unique_id=183031769]
-size_flags_vertical = 3
-
-[node name="DeathWarning" parent="HUD" index="1" unique_id=739909842]
-visible = false
-
-[node name="MissionInfo" parent="HUD" index="2" unique_id=2119248557]
-offset_left = -208.0
-
 [node name="ShipmentMenu" parent="." unique_id=1322058284 node_paths=PackedStringArray("airship", "guide") instance=ExtResource("9_4c57u")]
 airship = NodePath("../Airship")
 guide = NodePath("../Guide")
@@ -184,10 +183,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.33374, -147.6813, 895.7467
 [node name="station3" parent="." unique_id=1154857980 instance=ExtResource("15_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 789.84375, 118.888, 414.94016)
 
-[node name="BottomDeathZone" type="Area3D" parent="." unique_id=1913327954 node_paths=PackedStringArray("ui")]
+[node name="BottomDeathZone" type="Area3D" parent="." unique_id=1913327954]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -320.07156, -94.150986, 0)
-script = ExtResource("17_yaehf")
-ui = NodePath("../HUD/DeathWarning")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BottomDeathZone" unique_id=250518459]
 shape = SubResource("WorldBoundaryShape3D_yaehf")
