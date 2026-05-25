@@ -18,7 +18,7 @@ func update_cargo_mass():
 const AIR_DENSITY: float = 1.190
 const AIRSHIP_DENSITY: float = 0.0899
 const g: float = 9.8
-var up_boost_to_balance: float
+var up_boost_to_balance: float = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
 
 @export_group("Cargo")
 @export var products: Array[Product] = []
@@ -108,7 +108,6 @@ func _ready() -> void:
 		if prod:
 			mass += prod.weight * prod.amount
 
-	up_boost_to_balance = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
 	air_in_ballast = up_boost_to_balance
 
 func _process(delta: float) -> void:
@@ -117,9 +116,11 @@ func _process(delta: float) -> void:
 			air_in_ballast += air_ballast_pump_speed * delta * Input.get_axis("airship_descend", "airship_ascend")
 
 		thrust += Input.get_axis("airship_back", "airship_forward") * thrust_change_speed * delta
-	elif alive:
+
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		thrust = 0
-		air_in_ballast = up_boost_to_balance
+		reset_air_in_ballast = true
 
 	if reset_air_in_ballast:
 		if air_in_ballast > up_boost_to_balance:
@@ -133,19 +134,13 @@ func _process(delta: float) -> void:
 				air_in_ballast = up_boost_to_balance
 				reset_air_in_ballast = false
 		else:
-			reset_air_in_ballast = false
+				reset_air_in_ballast = false
 
-		air_in_ballast = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
-	else:
-		thrust = 0
-		air_in_ballast = 0
-		return
-	
 	if not hud.death_warning.counting:
 		if position.y > max_y: hud.death_warning.initiate_too_high()
 		elif position.y < min_y: hud.death_warning.initiate_too_low()
 	elif position.y > min_y and position.y < max_y: hud.death_warning.stop()
-	
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if controls_enabled:
 		state.apply_central_force(-basis.z * thrust)
@@ -161,7 +156,7 @@ func _physics_process(_delta: float) -> void:
 	var target_up: Vector3 = Vector3.UP
 	
 	var error_axis: Vector3 = current_up.cross(target_up)
-	
+
 	if error_axis.length() > 0.001:
 		var torque: Vector3 = error_axis * stabilization_force - angular_velocity * stabilization_damp * mass
 		apply_torque(torque)
@@ -169,6 +164,6 @@ func _physics_process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("remove_thrust"):
 		thrust = 0
-		
+
 	if event.is_action_released("remove_air_in_ballast"):
 		reset_air_in_ballast = true

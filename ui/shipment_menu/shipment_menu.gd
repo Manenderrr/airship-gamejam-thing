@@ -13,6 +13,8 @@ signal on_disappear
 @onready var parent_of_remove_containers: Node = %"RemoveContainers(VBox)"
 @export var remove_container_scene: PackedScene
 
+@export var guide: Control
+var in_guide: bool = false
 
 func _ready() -> void:
 	airship = %Airship
@@ -20,6 +22,8 @@ func _ready() -> void:
 	shipment_menu_disappear()
 	add_add_containers()
 	add_remove_containers()
+	
+	guide.visible = false
 
 func _on_button_pressed() -> void:
 	shipment_menu_disappear()
@@ -55,3 +59,12 @@ func add_remove_containers():
 			new_act_button_scene.item = prod
 
 			parent_of_remove_containers.add_child(new_act_button_scene)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("guide"):
+		if !in_guide:
+			guide.visible = true
+			in_guide = true
+		else:
+			guide.visible = false
+			in_guide = false

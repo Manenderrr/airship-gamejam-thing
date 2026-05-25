@@ -4,6 +4,11 @@ extends Control
 @export var y_vector_info: Label
 @export var x_vector_info: Label
 
+@export var mission_number_info: Label
+@export var prod1_info: Label
+@export var prod2_info: Label
+@export var prod3_info: Label
+
 @export var death_warning: DeathWarning
 @export var death_screen: CanvasItem
 
@@ -30,3 +35,10 @@ func show_main_menu() -> void:
 	SceneManager.start_main_menu()
 func quit_game() -> void:
 	SceneManager.quit_game()
+
+
+func _on_ports_mission_added(prod_name1: String, prod1: int, prod_name2: String, prod2: int, prod_name3: String, prod3: int, mission_number: int) -> void:
+	mission_number_info.text = "Station number: " + str(mission_number + 1)
+	prod1_info.text = "Resource 1: " + prod_name1 + " " + str(prod1)
+	prod2_info.text = "Resource 2: " + prod_name2 + " " + str(prod2)
+	prod3_info.text = "Resource 3: " + prod_name3 + " " + str(prod3)
