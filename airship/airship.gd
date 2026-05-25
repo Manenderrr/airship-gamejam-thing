@@ -44,8 +44,8 @@ signal air_changed(new_value: float)
 @export var air_ballast_pump_speed: float = 1000.0
 
 @export_group("Engine")
-@export var thrust_change_speed: float = 6000.0
-@export var max_thrust: float = 60000.0:
+@export var thrust_change_speed: float = 12000.0
+@export var max_thrust: float = 120000.0:
 	set(value):
 		max_thrust = value
 		max_thrust_changed.emit(max_thrust)
@@ -87,9 +87,9 @@ signal on_controls_change(new_state: bool)
 @export_group("Death")
 var alive: bool = true
 ## If Y is above this value, the death timeout starts.
-@export var max_y: float = 70.0
+@export var max_y: float = 150.0
 ## If Y is below this value, the death timeout starts.
-@export var min_y: float = -150.0
+@export var min_y: float = -160.0
 func die():
 	alive = false
 	disable_controls()
@@ -167,3 +167,21 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_released("remove_air_in_ballast"):
 		reset_air_in_ballast = true
+
+func add_mass():
+	for prod in products:
+		if prod:
+			cargo_mass += prod.weight * prod.amount
+	change_mass()
+
+func remove_mass():
+	for prod in products:
+		if prod:
+			cargo_mass += prod.weight * prod.amount
+	change_mass()
+
+func change_mass():
+	mass = cargo_mass + initial_mass
+	up_boost_to_balance = mass / (AIR_DENSITY - AIRSHIP_DENSITY)
+	air_in_ballast = up_boost_to_balance
+	cargo_mass = 0

@@ -28,7 +28,7 @@ func _on_airship_thrust_changed(new_thrust: float) -> void:
 		x_vector_info.text = str(snapped(new_thrust, 0.01)) + " m/s"
 
 func show_death_screen() -> void:
-	death_screen.show()
+	SceneManager.quit_game()
 func restart_game() -> void:
 	SceneManager.start_main_game()
 func show_main_menu() -> void:
